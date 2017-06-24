@@ -10,7 +10,7 @@ TOPICS was initiated by [Chio Maisriml][3].
 
 #### Installation
 
-* download the actual [Topics_x.xx.zip][4] installation archive
+* download the actual [Topics.zip][4] installation archive
 * in CMS backend select the file from "Add-ons" -> "Modules" -> "Install module"
 
 #### First Steps
@@ -21,4 +21,4 @@ The integrated help function will explain you all necessary. For further informa
 
 [2]: http://lepton-cms.org "LEPTON CMS"
 [3]: http://websitebaker.at
-[4]: https://github.com/phpManufaktur/TOPICS/downloads
+[4]: http://www.lepton-cms.com/lepador/modules/topics.php
