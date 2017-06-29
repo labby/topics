@@ -2,7 +2,7 @@
 
 
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 						
 
 
@@ -18,7 +18,7 @@ if (defined('TOPIC_ID')) {
 	
 	if($num_topics > 0) {
 		
-		$ppath = WB_URL.$topics_virtual_directory;
+		$ppath = LEPTON_URL.$topics_virtual_directory;
 		//if ($topics_virtual_directory == $topics_directory AND defined('TOPIC_ID')) {$ppath = '';} //a relative link will be enough
 		
 		$counter = 0;

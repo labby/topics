@@ -13,8 +13,8 @@
  */
 
 // include class.secure.php to protect this file and the whole CMS!
-if (defined('WB_PATH')) {
-  if (defined('LEPTON_VERSION')) include(WB_PATH.'/framework/class.secure.php');
+if (defined('LEPTON_PATH')) {
+  if (defined('LEPTON_VERSION')) include(LEPTON_PATH.'/framework/class.secure.php');
 } else {
   $oneback = "../";
   $root = $oneback;
@@ -44,8 +44,8 @@ function topics_search($search) {
   global $database;
 
   // include module_settings
-  include WB_PATH.'/modules/'.basename(dirname(__FILE__)).'/defaults/module_settings.default.php';
-  include WB_PATH.'/modules/'.basename(dirname(__FILE__)).'/module_settings.php';
+  include LEPTON_PATH.'/modules/'.basename(dirname(__FILE__)).'/defaults/module_settings.default.php';
+  include LEPTON_PATH.'/modules/'.basename(dirname(__FILE__)).'/module_settings.php';
 
   $divider = ".";
   $result = false;

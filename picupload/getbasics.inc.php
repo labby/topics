@@ -3,7 +3,7 @@
 if (!function_exists('getimagesize')) { die("<h2>function 'getimagesize' doesnt exist</h2>"); }
 
 $theauto_header = false;
-require_once(WB_PATH.'/framework/class.admin.php');
+require_once(LEPTON_PATH.'/framework/class.admin.php');
 $admin = new admin('Pages', 'pages_modify', $theauto_header, TRUE);
 if(!$admin->is_authenticated()) { die(); }
 
@@ -17,7 +17,7 @@ $query_settings = $database->query("SELECT * FROM ".TABLE_PREFIX."mod_".$tablena
 if($query_settings->numRows() != 1) { die('Wahh!'); }
 $settings_fetch = $query_settings->fetchRow();
 $picture_dir = $settings_fetch['picture_dir'];
-$picture_dirurl = WB_URL.$settings_fetch['picture_dir'];
+$picture_dirurl = LEPTON_URL.$settings_fetch['picture_dir'];
 
 $vv = explode(',',$settings_fetch['picture_values'].',-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2');
 $w_zoom = (int) $vv[0]; if ($w_zoom == -2) {$w_zoom = 1000;}
@@ -37,14 +37,14 @@ $h_thumb = (int) $vv[5]; if ($h_thumb == -2) {$h_thumb = 100;}
 
 <?php echo'
 <script type="text/javascript">
-var WB_URL = "'.WB_URL.'";
-var MOD_URL = "'.WB_URL.'/modules/'.$mod_dir.'";
+var LEPTON_URL = "'.LEPTON_URL.'";
+var MOD_URL = "'.LEPTON_URL.'/modules/'.$mod_dir.'";
 </script>
-<link rel="stylesheet" type="text/css" href="'.WB_URL.'/modules/'.$mod_dir.'/picupload/picupload.css"  />
-<script src="'.WB_URL.'/include/jquery/jquery-min.js" type="text/javascript"></script>
-<script src="'.WB_URL.'/include/jquery/jquery-insert.js" type="text/javascript"></script>
-<script src="'.WB_URL.'/include/jquery/jquery-include.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="'.WB_URL.'/modules/'.$mod_dir.'/picupload/jcrob/css/jquery.Jcrop.css" />
+<link rel="stylesheet" type="text/css" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/picupload/picupload.css"  />
+<script src="'.LEPTON_URL.'/include/jquery/jquery-min.js" type="text/javascript"></script>
+<script src="'.LEPTON_URL.'/include/jquery/jquery-insert.js" type="text/javascript"></script>
+<script src="'.LEPTON_URL.'/include/jquery/jquery-include.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/picupload/jcrob/css/jquery.Jcrop.css" />
 ';
 ?>
 </head><body>

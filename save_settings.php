@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 $update_when_modified = true; // Tells script to update when this page was last updated
 require('permissioncheck.php');
 
@@ -202,7 +202,7 @@ if($database->is_error()) {
 	if ($gototopicslist == 1) {
 		$admin->print_success($TEXT['SUCCESS'], ADMIN_URL.'/pages/modify.php?page_id='.$page_id);
 	} else {
-		$admin->print_success($TEXT['SUCCESS'], WB_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.'&section_id='.$section_id);
+		$admin->print_success($TEXT['SUCCESS'], LEPTON_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.'&section_id='.$section_id);
 	}
 }
 

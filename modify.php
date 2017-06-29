@@ -1,7 +1,7 @@
 <?php
 
 // Must include code to stop this file being access directly
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 require('permissioncheck.php');
 
 if (isset($_GET['hl'])) {$hltopic = 0 + (int)$_GET['hl'];} else {$hltopic = 0;}
@@ -32,11 +32,11 @@ if(!isset($settings_fetch['is_master_for'])){
 
 echo '<div class="topic-modify">';
 if ($is_master == '') {
-	echo '<a class="topic-modify-add" href="'.WB_URL.'/modules/'.$mod_dir.'/add_topic.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'fredit='.$fredit.'">'.$TEXT['ADD'].'</a>'."\n";
+	echo '<a class="topic-modify-add" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/add_topic.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'fredit='.$fredit.'">'.$TEXT['ADD'].'</a>'."\n";
 }
 if ($showoptions) {
-	echo '<a class="topic-modify-settings" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$TEXT['SETTINGS']."</a>\n";
-	echo '<a class="topic-modify-help" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$MENU['HELP']."</a>\n";
+	echo '<a class="topic-modify-settings" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$TEXT['SETTINGS']."</a>\n";
+	echo '<a class="topic-modify-help" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$MENU['HELP']."</a>\n";
 }
 echo "\n</div>\n";
 ?>
@@ -117,7 +117,7 @@ if($query_topics->numRows() > 0) {
 		$trclass = $row;
 		if ($t_id == $hltopic) {$trclass .= ' hilite';}
 
-		$modifylink = '<a title="'.$TEXT['MODIFY'].'" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?'.$params.'" >';
+		$modifylink = '<a title="'.$TEXT['MODIFY'].'" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?'.$params.'" >';
 		if ($authoronly) {
 			$authors = $topic['authors'];
 			$pos = strpos ($authors,','.$user_id.',');
@@ -135,7 +135,7 @@ if($query_topics->numRows() > 0) {
 			$comments_count = $topic['comments_count'];
 			if ($comments_count < 0) { $dorefresch = 2;} else { $dorefresch = 0;}
 		} else {
-			require_once(WB_PATH.'/modules/'.$mod_dir.'/inc/upgrade.inc.php');
+			require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/inc/upgrade.inc.php');
 			exit('<h2>Please refresh the page now</h2>');
 		}
 		if ($dorefresch > 0) {
@@ -151,7 +151,7 @@ if($query_topics->numRows() > 0) {
 		$allcommentscount += $comments_count;
 		$commentsclass = topics_commentsclass ($comments_count);
 		if ($comments_count > 0) {
-			$modifycommentslink = '<a title="'.$TEXT['MODIFY'].'" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?'.$params.'#comments" ><img src="'.$picsurl.'comments'.$commentsclass.'.gif" alt="'.$comments_count.'" title="'.$comments_count.' comments" /></a>';
+			$modifycommentslink = '<a title="'.$TEXT['MODIFY'].'" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?'.$params.'#comments" ><img src="'.$picsurl.'comments'.$commentsclass.'.gif" alt="'.$comments_count.'" title="'.$comments_count.' comments" /></a>';
 		} else {
 			$modifycommentslink = '<img src="'.$picsurl.'comments0.gif" alt="0" title="no comments" />';
 		}
@@ -188,8 +188,8 @@ if($query_topics->numRows() > 0) {
 		//} 
 		
 		if ($showsortarrows == true) {
-			$rowcontent .= '<td width="20">'; if($counter > 1) { $rowcontent .= '<a href="'.WB_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=up" title="'.$TEXT['MOVE_UP'].'"><img src="'.THEME_URL.'/images/up_16.png" border="0" alt="^" /></a>';} $rowcontent .= '</td>';
-			$rowcontent .= '<td width="20">'; if($counter < $num_topics) { $rowcontent .= '<a href="'.WB_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=down" title="'.$TEXT['MOVE_DOWN'].'"><img src="'.THEME_URL.'/images/down_16.png" border="0" alt="v" /></a>';} $rowcontent .= '</td>';
+			$rowcontent .= '<td width="20">'; if($counter > 1) { $rowcontent .= '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=up" title="'.$TEXT['MOVE_UP'].'"><img src="'.THEME_URL.'/images/up_16.png" border="0" alt="^" /></a>';} $rowcontent .= '</td>';
+			$rowcontent .= '<td width="20">'; if($counter < $num_topics) { $rowcontent .= '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=down" title="'.$TEXT['MOVE_DOWN'].'"><img src="'.THEME_URL.'/images/down_16.png" border="0" alt="v" /></a>';} $rowcontent .= '</td>';
 
 		} else { //End Position Arrows
 			$thet =  $topic['published_when']; //+TIMEZONE;
@@ -203,7 +203,7 @@ if($query_topics->numRows() > 0) {
 		
 		
 		if ($topic['hascontent'] > 0 AND $active > 0) {
-			$topic_link = WB_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
+			$topic_link = LEPTON_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
 		 	$rowcontent .= '<a href="'.$topic_link.'" target="_blank" ><img src="'.THEME_URL.'/images/view_16.png" class="viewbutton" alt="View" /></a>';
 		} 
 		
@@ -248,7 +248,7 @@ Sorted by: <?php echo $sort_topics_by; ?>
 		echo $TEXT['NONE_FOUND'].'<hr/>';
 
 		if ($showoptions) {
-			echo '<a class="topic-modify-settings" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'do=setmaster">Set as TopicsMaster</a>';
+			echo '<a class="topic-modify-settings" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'do=setmaster">Set as TopicsMaster</a>';
 		}
 	} else {
 		echo '<p>This section is a master-section for: '.$is_master.'</p>';
@@ -257,10 +257,10 @@ Sorted by: <?php echo $sort_topics_by; ?>
 
 	/*
 
-	if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/starthelp'.LANGUAGE.'.php')) {
-		include(WB_PATH.'/modules/'.$mod_dir.'/languages/starthelpEN.php');
+	if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/starthelp'.LANGUAGE.'.php')) {
+		include(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/starthelpEN.php');
 	} else {
-		include(WB_PATH.'/modules/'.$mod_dir.'/languages/starthelp'.LANGUAGE.'.php');
+		include(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/starthelp'.LANGUAGE.'.php');
 	}
 
 	*/

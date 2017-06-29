@@ -1,7 +1,7 @@
 <?php //--------------------------------------------------------------------------
 
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 	
 $seealso_array = array();
 $pnsavars = array('[TOPIC_ID]', '{TITLE}', '[TITLE]', '[LINK]','[SHORT_DESCRIPTION]', '[PICTURE_DIR]', '[PICTURE]');
@@ -36,7 +36,7 @@ if ($see_also_text != '') {
 				if ($t_id == TOPIC_ID)  {continue;} //Not show this one, this should never happen, but who knows...
 												
 				$seealso_array[] = $t_id;												
-				$topic_link = WB_URL.$topics_virtual_directory.$fetchtopic['link'].PAGE_EXTENSION;
+				$topic_link = LEPTON_URL.$topics_virtual_directory.$fetchtopic['link'].PAGE_EXTENSION;
 				if ($frombackend) {$topic_link = 'modify_topic.php?page_id='.$fetchtopic['page_id'].'&section_id='.$fetchtopic['section_id'].'&topic_id='.$fetchtopic['topic_id'].'&fredit='.$fredit;}
 				$topic_title = $fetchtopic['title'];
 				$topic_atitle = '<a href="'.$topic_link.'">'.$topic_title.'</a>';			
@@ -57,7 +57,7 @@ if ($see_also_text != '') {
 				$thepage_id = $fetchpages['page_id'];
 				if ($thepage_id == $page_id) continue;
 																			
-				$page_link = WB_URL.PAGES_DIRECTORY.$fetchpages['link'].PAGE_EXTENSION;
+				$page_link = LEPTON_URL.PAGES_DIRECTORY.$fetchpages['link'].PAGE_EXTENSION;
 				if ($frombackend) {$page_link = ADMIN_URL.'pages/modify.php?'.$thepage_id ;}
 				$page_title = $fetchpages['title'];
 				$page_atitle = '<a href="'.$page_link.'">'.$page_title.'</a>';			
@@ -80,8 +80,8 @@ if ($see_also_text != '') {
 				$field1 = $fetchbakery['definable_field_0'];
 				
 																
-				$bakery_link = WB_URL.PAGES_DIRECTORY.$fetchbakery['link'].PAGE_EXTENSION;
-				if ($frombackend) {$bakery_link = WB_URL.'/modules/bakery/modify_item.php?page_id='.$fetchbakery['page_id'].'&section_id='.$fetchbakery['section_id'].'&item_id='.$item_id ;}
+				$bakery_link = LEPTON_URL.PAGES_DIRECTORY.$fetchbakery['link'].PAGE_EXTENSION;
+				if ($frombackend) {$bakery_link = LEPTON_URL.'/modules/bakery/modify_item.php?page_id='.$fetchbakery['page_id'].'&section_id='.$fetchbakery['section_id'].'&item_id='.$item_id ;}
 				$bakery_title = $fetchbakery['title'];
 				$bakery_atitle = '<a href="'.$bakery_link.'">'.$bakery_title.'</a>';			
 				$values = array($item_id, $bakery_atitle, $bakery_title, $bakery_link, $fetchbakery['description'],'',$field1);
@@ -165,7 +165,7 @@ if ($show_prevnext_links AND $showmax_prev_next_links > 0) {
 	
 			//OK, show it:
 			$prevnext_array[] = $t_id;							
-			$topic_link = WB_URL.$topics_virtual_directory.$fetchtopic['link'].PAGE_EXTENSION;
+			$topic_link = LEPTON_URL.$topics_virtual_directory.$fetchtopic['link'].PAGE_EXTENSION;
 			if ($singletopic_id == $t_id) {$topic_link = $singletopic_link;}
 			if ($frombackend) {$topic_link = $modifylink.$t_id;}
 			$topic_title = $fetchtopic['title'];
@@ -193,7 +193,7 @@ if ($show_prevnext_links AND $showmax_prev_next_links > 0) {
 			//$counter++; if ($counter > $showmax_prev_next_links) {break;}
 			//OK, show it:			
 			$prevnext_array[] = $t_id;							
-			$topic_link = WB_URL.$topics_virtual_directory.$fetchtopic['link'].PAGE_EXTENSION;
+			$topic_link = LEPTON_URL.$topics_virtual_directory.$fetchtopic['link'].PAGE_EXTENSION;
 			if ($singletopic_id == $t_id) {$topic_link = $singletopic_link;}
 			if ($frombackend) {$topic_link = $modifylink.$t_id;}
 			$topic_title = $fetchtopic['title'];

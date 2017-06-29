@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../../../config.php');
-if(!defined('WB_PATH')) { 	die("sorry, no access..");}
+if(!defined('LEPTON_PATH')) { 	die("sorry, no access..");}
 
 // Get id
 if(isset($_POST['s']) AND is_numeric($_POST['s']) AND isset($_POST['p']) AND is_numeric($_POST['p'])) {
@@ -14,7 +14,7 @@ if(isset($_POST['s']) AND is_numeric($_POST['s']) AND isset($_POST['p']) AND is_
 
 
 $theauto_header = false;
-require_once(WB_PATH.'/framework/class.admin.php');
+require_once(LEPTON_PATH.'/framework/class.admin.php');
 $admin = new admin('Pages', 'pages_modify', $theauto_header, TRUE);
 if(!$admin->is_authenticated()) { die(); }
 
@@ -26,10 +26,10 @@ $tablename = $module_directory;
 
 // Load Language file
 if(LANGUAGE_LOADED) {
-	if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
+	if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
 	} else {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
 	}
 }
 
@@ -48,8 +48,8 @@ echo '';
 if ($picture_dir != '') {
 	
 	
-	$file_dir= WB_PATH.$picture_dir;
-	//$picture_dir = str_replace(WB_PATH,'', $picture_dir);		
+	$file_dir= LEPTON_PATH.$picture_dir;
+	//$picture_dir = str_replace(LEPTON_PATH,'', $picture_dir);		
 	$check_pic_dir=is_dir("$file_dir");
 	$allpreviews = '';
 	if ($check_pic_dir=='1') {
@@ -58,7 +58,7 @@ if ($picture_dir != '') {
 		while ($file=readdir($pic_dir)) {
 			if ($file != "." && $file != "..") {			
 				if (preg_match('/.+\.(jpeg|jpg|gif|png|JPG|GIF|PNG)$/',$file)) {
-					$thepreview = '<div class="topicpic_preview"><a href="javascript:choosethispicture(\''.$file.'\');"><img src="'.WB_URL.$picture_dir.'/'.$file.'" alt="" title="'.$file.'" /></a></div> 
+					$thepreview = '<div class="topicpic_preview"><a href="javascript:choosethispicture(\''.$file.'\');"><img src="'.LEPTON_URL.$picture_dir.'/'.$file.'" alt="" title="'.$file.'" /></a></div> 
 					';
 					$allpreviews = $thepreview.$allpreviews; //reversed sorting						
 				} 

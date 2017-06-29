@@ -1,5 +1,5 @@
 <?php 
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); } 
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); } 
 if (!defined('THEME_URL')) define ("THEME_URL", ADMIN_URL);
 
 $mod_dir = basename(dirname(__FILE__));
@@ -9,8 +9,8 @@ $fredit = 0; //frontend edit
 
 // include module_settings
 $topic_seealso_support = '';
-require_once(WB_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
-require_once(WB_PATH.'/modules/'.$mod_dir.'/module_settings.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/module_settings.php');
 
 
 $isget = 0;
@@ -22,7 +22,7 @@ if(isset($_GET['fredit']) AND $_GET['fredit'] == 1) {
 
 if ($fredit == 1) { //frontend
 	$theauto_header = false;
-	require_once(WB_PATH.'/framework/class.admin.php');
+	require_once(LEPTON_PATH.'/framework/class.admin.php');
 	$admin = new admin('Pages', 'pages_modify', $theauto_header, TRUE);
 	if ($isget==1) {
 		$page_id = (int) $_GET['page_id'];
@@ -33,7 +33,7 @@ if ($fredit == 1) { //frontend
 	}
 		
 } else {	
-	if (!isset($admin)) { require_once(WB_PATH.'/modules/admin.php'); } //if (!isset($admin)).. Darf man das?
+	if (!isset($admin)) { require_once(LEPTON_PATH.'/modules/admin.php'); } //if (!isset($admin)).. Darf man das?
 }
 
 if(!$admin->is_authenticated()) {
@@ -46,14 +46,14 @@ if(!$admin->is_authenticated()) {
 
 // Load Language file
 if(LANGUAGE_LOADED) {
-	if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
+	if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
 	} else {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
 	}
 }
 
-require_once(WB_PATH.'/modules/'.$mod_dir.'/functions_small.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/functions_small.php');
 
 if (isset($section_id)) {
 	$topic_id = 0;
@@ -101,6 +101,6 @@ if ($authoronly == true) {$fredit = 1;} //Provisorisch
 if ($fredit == 1) { 
 	$showoptions = false;
 	//Header Ausgeben
-	require(WB_PATH.'/modules/'.$mod_dir .'/inc/fredithead.php');
+	require(LEPTON_PATH.'/modules/'.$mod_dir .'/inc/fredithead.php');
 }
 ?>

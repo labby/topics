@@ -10,10 +10,10 @@ if(!isset($_GET['section_id']) OR !is_numeric($_GET['section_id'])) {
 
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
-require_once(WB_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
-require_once(WB_PATH.'/modules/'.$mod_dir.'/module_settings.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/module_settings.php');
 
-require_once(WB_PATH.'/framework/class.wb.php');
+require_once(LEPTON_PATH.'/framework/class.wb.php');
 $wb = new wb;
 if ($wb->is_authenticated()) {echo "//Starting Javascript\n";} else {die("Sorry, no access");}
 

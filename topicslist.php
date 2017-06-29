@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_GET['topic_id']) OR !is_numeric($_GET['topic_id'])) {
@@ -14,11 +14,11 @@ if(!isset($_GET['topic_id']) OR !is_numeric($_GET['topic_id'])) {
 require('permissioncheck.php');
 
 
-//require_once(WB_PATH."/include/jscalendar/jscalendar-functions.php");
+//require_once(LEPTON_PATH."/include/jscalendar/jscalendar-functions.php");
 
 
 // Include WB functions file
-//require(WB_PATH.'/framework/summary.functions.php');
+//require(LEPTON_PATH.'/framework/summary.functions.php');
 
 
 //get This Topic Params
@@ -117,7 +117,7 @@ if($query_topics->numRows() > 0) {
 	$row = 'a';
 	
 	?>
-	<form name="seealsolinks" action="<?php echo WB_URL.'/modules/'.$mod_dir; ?>/save_seealso.php" method="post" style="margin: 0;">
+	<form name="seealsolinks" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/save_seealso.php" method="post" style="margin: 0;">
      <input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
 	<input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
 	<input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>" />
@@ -134,8 +134,8 @@ if($query_topics->numRows() > 0) {
 		$params = 'page_id='.$topic['page_id'].$paramdelimiter.'section_id='.$topic['section_id'].$paramdelimiter.'topic_id='.$t_id; 
 		$active = $topic['active'];
 		
-		$modifylink = '<a title="'.$TEXT['MODIFY'].'" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?'.$params.'" >';
-		$modifylinkto = '<a href="'.WB_URL.'/modules/'.$mod_dir.'/topicslist.php?' . $params.'" title="'.$MOD_TOPICS['SWITCHTO'].'"><img src="img/totopiclist.gif" alt="" title="Switchto - " /></a>';
+		$modifylink = '<a title="'.$TEXT['MODIFY'].'" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?'.$params.'" >';
+		$modifylinkto = '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/topicslist.php?' . $params.'" title="'.$MOD_TOPICS['SWITCHTO'].'"><img src="img/totopiclist.gif" alt="" title="Switchto - " /></a>';
 		if ($authoronly) {
 			$authors = $topic['authors'];
 			$pos = strpos ($authors,','.$user_id.',');
@@ -153,7 +153,7 @@ if($query_topics->numRows() > 0) {
 		
 		
 		
-		<?php $topic_link = WB_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
+		<?php $topic_link = LEPTON_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
 		
 		if ($topic['hascontent'] > 0) { 
 			if ($modifylinkto != '') {echo $modifylinkto;} else {echo '<img src="img/none.gif" alt="" title="" />';}
@@ -193,7 +193,7 @@ if($query_topics->numRows() > 0) {
 				<input name="save" type="submit" value="<?php echo $TEXT['SAVE']; ?>" style="width: 100px; margin-top: 5px;" />
 			</td>
 			<td align="right">
-				<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit; ?>';" style="width: 100px; margin-top: 5px;" />
+				<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit; ?>';" style="width: 100px; margin-top: 5px;" />
 			</td>
 		</tr>
 	</table>

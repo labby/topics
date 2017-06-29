@@ -21,10 +21,10 @@
 
 */
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 if (defined("TOPIC_BLOCK2")) return ''; //prevent from more than one topic per page
 
-require_once (WB_PATH.'/modules/'.$mod_dir.'/functions_small.php');
+require_once (LEPTON_PATH.'/modules/'.$mod_dir.'/functions_small.php');
 
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
@@ -61,7 +61,7 @@ if($query_page->numRows() < 1) { exit('Page not found'); }
 	
 $page = $query_page->fetchRow();
 $page_link = page_link($page['link']);
-if ($page['parent'] == 0 AND $page['position'] == 1) {$page_link = WB_URL.'/';} //Seem to be the homepage
+if ($page['parent'] == 0 AND $page['position'] == 1) {$page_link = LEPTON_URL.'/';} //Seem to be the homepage
 if($showoffset > 0) { $page_link .= '?p='.$showoffset; }
 	
 $qactive = " active > '1' ";	
@@ -155,14 +155,14 @@ if($query_topic->numRows() > 0) {
 	$show_prevnext_links = 1;
 	if ( strpos($checkwhatstring, '{SEE_PREVNEXT}') === false ) { $show_prevnext_links = 0;} //No Placeholder? No need to query
 	if ($show_prevnext_links == 1 OR  $see_also_text != '') {				
-		include(WB_PATH.'/modules/'.$mod_dir.'/inc/find_pnsa_links.inc.php');
+		include(LEPTON_PATH.'/modules/'.$mod_dir.'/inc/find_pnsa_links.inc.php');
 	}
 			
 	//the full link List
 	if ( strpos($checkwhatstring, '{FULL_TOPICS_LIST}') === false ) {
 		$topics_linkslist = '';
 	} else {
-		include(WB_PATH.'/modules/'.$mod_dir.'/inc/link_list.inc.php');			
+		include(LEPTON_PATH.'/modules/'.$mod_dir.'/inc/link_list.inc.php');			
 	}
 	
 	$eventplaceholders = false;
@@ -199,7 +199,7 @@ if($query_topic->numRows() > 0) {
 				$picture_tag = '<img class="tp_pic tp_pic'.$page_id.'" src="'.$picture_dir.'/'.$picture.'" alt="'.$topic['short_description'].'" />';
 				if ($zoomclass != '' AND $picturelink == '') {
 					//Check if there is a picture in folder "zoom"
-					$zoompic = WB_PATH.$settings_fetch['picture_dir'].'/zoom/'.$picture;			
+					$zoompic = LEPTON_PATH.$settings_fetch['picture_dir'].'/zoom/'.$picture;			
 					if (file_exists($zoompic)) { $picturelink = '<a href="'.$picture_dir.'/zoom/'.$picture.'" target="_blank" class="'.$zoomclass.'">'; }		
 				}
 			}
@@ -218,7 +218,7 @@ if($query_topic->numRows() > 0) {
 		$pos = strpos ($authors,','.$user_id.',');
 		if ($pos !== false){$makeeditlink = true;}	
 	}
-	if ($makeeditlink) { $edit_link = '<div class="mod_topic_edit"><a class="tp_editlink" target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.PAGE_ID.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.TOPIC_ID.$paramdelimiter.'fredit='.$fredit.'">Edit</a></div>'; }
+	if ($makeeditlink) { $edit_link = '<div class="mod_topic_edit"><a class="tp_editlink" target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.PAGE_ID.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.TOPIC_ID.$paramdelimiter.'fredit='.$fredit.'">Edit</a></div>'; }
 			
 	if ($short_textareaheight > 0) {		
 		$topic_short=$topic['content_short'];
@@ -339,7 +339,7 @@ if($query_topic->numRows() > 0) {
 	if ($commenting > 0 AND $use_commenting > 0) {		
 		$commentframe = '<script type="text/javascript">		
 		lastcommentid='.(0+$comment_id).';
-		thecommurl=\''.WB_URL.'\'+\'/modules/\';
+		thecommurl=\''.LEPTON_URL.'\'+\'/modules/\';
 		document.write(\'<iframe src="\'+thecommurl+\''.$mod_dir.'/comment.php?id='.TOPIC_ID.'&amp;sid='.$section_id.'" frameborder="0" class="mod_topic_comment_iframe" scrolling="no" ALLOWTRANSPARENCY="true" id="extrasager"></iframe>\');
 		</script>';
 					
@@ -348,10 +348,10 @@ if($query_topic->numRows() > 0) {
 	
 	//-------------------------------------------------------------------------------------------
 	//Make the final output:		
-	if (file_exists(WB_PATH.'/modules/'.$mod_dir.'/view.final.custom.php')) {
-		include(WB_PATH.'/modules/'.$mod_dir.'/view.final.custom.php');
+	if (file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/view.final.custom.php')) {
+		include(LEPTON_PATH.'/modules/'.$mod_dir.'/view.final.custom.php');
 	} else {
-		include(WB_PATH.'/modules/'.$mod_dir.'/view.final.php');
+		include(LEPTON_PATH.'/modules/'.$mod_dir.'/view.final.php');
 	}
 	//-------------------------------------------------------------------------------------------
 	

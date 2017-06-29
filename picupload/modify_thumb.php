@@ -1,6 +1,6 @@
 <?php 
 require_once(dirname(__FILE__).'/../../../config.php');
-if(!defined('WB_PATH')) { 	die("sorry, no access..");}
+if(!defined('LEPTON_PATH')) { 	die("sorry, no access..");}
 
 //Das muss hier so gemacht werden:
 require_once('../info.php');
@@ -24,11 +24,11 @@ if(isset($_POST['what']) AND $_POST['what'] == 'view') {$whatdir = 'view';}
 
 if(!isset($_GET['fn'])) {die('no filename');}
 $file_name = $_GET['fn']; //zb file.jpg - gemeint ist immer zoom, außer es existiert nicht.
-$full_file = WB_PATH.$picture_dir.'/zoom/'.$file_name;
-$full_file_link = WB_URL.$picture_dir.'/zoom/'.$file_name;
+$full_file = LEPTON_PATH.$picture_dir.'/zoom/'.$file_name;
+$full_file_link = LEPTON_URL.$picture_dir.'/zoom/'.$file_name;
 if(!file_exists($full_file)) {
-	$full_file = WB_PATH.$picture_dir.'/'.$file_name;	
-	$full_file_link = WB_URL.$picture_dir.'/'.$file_name;
+	$full_file = LEPTON_PATH.$picture_dir.'/'.$file_name;	
+	$full_file_link = LEPTON_URL.$picture_dir.'/'.$file_name;
 	if(!file_exists($full_file)) {
 		echo '<p>No File: '.$full_file.'<p>';
 		die();
@@ -44,12 +44,12 @@ if(isset($_GET['what']) AND $_GET['what'] == 'delete') {
 	$query_pic= $database->query("SELECT * FROM ".TABLE_PREFIX."mod_".$tablename." WHERE picture = '$file_name'");
 	if($query_pic->numRows() > 0) { 
 		echo "<h3>This picture is in use. You cannot delete it</h3>";
-		$admin->print_success('deleted', WB_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name);
+		$admin->print_success('deleted', LEPTON_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name);
 	} else {
-		unlink(WB_PATH.$picture_dir.'/thumbs/'.$file_name);
-		unlink(WB_PATH.$picture_dir.'/zoom/'.$file_name);
-		unlink(WB_PATH.$picture_dir.'/'.$file_name);
-		//$admin->print_success('deleted', WB_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name);
+		unlink(LEPTON_PATH.$picture_dir.'/thumbs/'.$file_name);
+		unlink(LEPTON_PATH.$picture_dir.'/zoom/'.$file_name);
+		unlink(LEPTON_PATH.$picture_dir.'/'.$file_name);
+		//$admin->print_success('deleted', LEPTON_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name);
 		echo '<script type="text/javascript">
 			parent.openpicturepreviews();
 		</script>';
@@ -63,7 +63,7 @@ $thumb_file = str_replace('zoom/','',$file_name );
 $thumb_file = str_replace('thumbs/','',$thumb_file );
 $thumb_file = str_replace('//','/',$thumb_file );
 */
-$thumb_file =WB_PATH.$picture_dir.'/thumbs/'.$file_name;
+$thumb_file =LEPTON_PATH.$picture_dir.'/thumbs/'.$file_name;
 
 $previewWidth = $w_thumb;
 $previewHeight = $h_thumb;
@@ -74,7 +74,7 @@ if ($whatdir == 'view') {
 	$w_thumb = $w_view;
 	$h_thumb = 0; //$h_view;
 	
-	$thumb_file =WB_PATH.$picture_dir.'/'.$file_name;
+	$thumb_file =LEPTON_PATH.$picture_dir.'/'.$file_name;
 }
 
 if ($previewWidth == 0 OR $previewHeight == 0) {
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//echo "<p>$thumb_file<br/>w_thumb: $w_thumb, h_thumb: $h_thumb, w: ".$_POST['w'].' h: '. $_POST['h'].'<p>';
 	//die();
 	if (resizepic($full_file, $thumb_file, $w_thumb, $h_thumb, 0, $_POST['x'], $_POST['y'], $_POST['w'], $_POST['h'])) {
-		$admin->print_success('Thumb erfolgreich geändert', WB_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name);
+		$admin->print_success('Thumb erfolgreich geändert', LEPTON_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name);
 	}
 } 	else {
 
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</div>
 		<br />
 		<!-- This is the form that our event handler fills -->
-		<form action="'.WB_URL.'/modules/'.$mod_dir.'/picupload/modify_thumb.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name.'" method="post" onsubmit="return checkCoords();">
+		<form action="'.LEPTON_URL.'/modules/'.$mod_dir.'/picupload/modify_thumb.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name.'" method="post" onsubmit="return checkCoords();">
 								<input type="hidden" name="section_id" value="'.$section_id.'">
 								<input type="hidden" name="page_id" value="'.$page_id.'">
 								<input type="hidden" name="fn" value="'.$file_name.'">
@@ -136,14 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<input type="hidden" id="w" name="w" />
 			<input type="hidden" id="h" name="h" />
 			<input style="width: 130px;" type="submit" value="GO!" /><br />
-			<input style="width: 130px;" type="button" value="'.$TEXT['CANCEL'].'" onClick="window.location=\''.WB_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name.'\'"/>
+			<input style="width: 130px;" type="button" value="'.$TEXT['CANCEL'].'" onClick="window.location=\''.LEPTON_URL.'/modules/'.$mod_dir.'/picupload/uploadview.php?page_id='.$page_id.'&section_id='.$section_id.'&fn='.$file_name.'\'"/>
 		</form>
 	</div>';
 
 }
 
 
-echo '<script src="'.WB_URL.'/modules/'.$mod_dir.'/picupload/modify_thumb.js" type="text/javascript"></script>';
+echo '<script src="'.LEPTON_URL.'/modules/'.$mod_dir.'/picupload/modify_thumb.js" type="text/javascript"></script>';
 
 /*
 
@@ -174,7 +174,7 @@ if($query = $database->query($sql)){
 		
 		//Neues Thumb erstellen
 		if (generateThumb($full_file, $thumb_file, $settings['thumb_size'], 1, $settings['ratio'], $_POST['x'], $_POST['y'], $_POST['w'], $_POST['h'])) {
-			$admin->print_success('Thumb erfolgreich geändert', WB_URL.'/modules/foldergallery/modify_cat.php?page_id='.$page_id.'&section_id='.$section_id.'&cat_id='.$cat_id);
+			$admin->print_success('Thumb erfolgreich geändert', LEPTON_URL.'/modules/foldergallery/modify_cat.php?page_id='.$page_id.'&section_id='.$section_id.'&cat_id='.$cat_id);
 		}
 	}
 	else {

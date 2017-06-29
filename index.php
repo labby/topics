@@ -17,14 +17,14 @@ $tablename = $mod_dir;
 // Include config file
 require_once('../../config.php');
 // Check if the config file has been set-up
-if(!defined('WB_PATH')) {
+if(!defined('LEPTON_PATH')) {
 	header('Location: ../../');	
 	exit(0);
 }
 
 
-require_once(WB_PATH.'/framework/class.frontend.php');
-require_once(WB_PATH.'/framework/summary.functions.php');
+require_once(LEPTON_PATH.'/framework/class.frontend.php');
+require_once(LEPTON_PATH.'/framework/summary.functions.php');
 // Create new frontend object
 $wb = new frontend();
 $topic_link2 = save_filename($topic_link);
@@ -42,7 +42,7 @@ if ($num_topics == 1) {
 	$section_id = $topic['section_id'];
 	$page_id = $topic['page_id'];
 	define('TOPIC_ID',$topic_id);	
-	require(WB_PATH."/index.php");
+	require(LEPTON_PATH."/index.php");
 } else {
 	header("HTTP/1.0 404 Not Found");
 

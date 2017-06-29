@@ -22,33 +22,33 @@
 */
 
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 
 // Load Language file
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
 if(LANGUAGE_LOADED) {
-	if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
+	if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
 	} else {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
 	}
 }
 
-require(WB_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
-require(WB_PATH.'/modules/'.$mod_dir.'/module_settings.php');
+require(LEPTON_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
+require(LEPTON_PATH.'/modules/'.$mod_dir.'/module_settings.php');
 
 if(!defined('TOPICS_DIRECTORY')) {define('TOPICS_DIRECTORY', $topics_directory);}
 if(!defined('TOPICS_DIRECTORY_DEPTH')) {define('TOPICS_DIRECTORY_DEPTH', $topics_directory_depth);}
 
-require_once(WB_PATH.'/modules/'.$mod_dir.'/functions_small.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/functions_small.php');
 
 //$topics_use_wysiwyg = 1;
 
 // check if frontend.css file needs to be included into the <body></body> of view.php
-if((!function_exists('register_frontend_modfiles') || !defined('MOD_FRONTEND_CSS_REGISTERED')) &&  file_exists(WB_PATH .'/modules/'.$mod_dir.'/frontend.css')) {
+if((!function_exists('register_frontend_modfiles') || !defined('MOD_FRONTEND_CSS_REGISTERED')) &&  file_exists(LEPTON_PATH .'/modules/'.$mod_dir.'/frontend.css')) {
    echo '<style type="text/css">';
-   include(WB_PATH .'/modules/'.$mod_dir.'/frontend.css');
+   include(LEPTON_PATH .'/modules/'.$mod_dir.'/frontend.css');
    echo "\n</style>\n";
 } 
 
@@ -196,7 +196,7 @@ if ($autoarchiveArr == 0) {
 //various things:
 $minimum_commentedtime = $t - $topics_comment_cookie; //Seconds
 
-$picture_dir = WB_URL.$settings_fetch['picture_dir'];
+$picture_dir = LEPTON_URL.$settings_fetch['picture_dir'];
 $section_title = $settings_fetch['section_title'];
 $section_description = $settings_fetch['section_description'];
 
@@ -277,7 +277,7 @@ if($setting_topics_per_page == 1) {
 	$num_topics = $query_topics->numRows();
 	if ($num_topics == 1) {
 		$topic = $query_topics->fetchRow();
-		$topic_link = WB_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;
+		$topic_link = LEPTON_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;
 		$singletopic_id = $topic['topic_id'];
 		
 		// If THIS is a single-topic page, we need to change all topiclinks to the main page 

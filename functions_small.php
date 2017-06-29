@@ -1,7 +1,7 @@
 <?php
 
 // Stop this file from being accessed directly
-if(!defined('WB_URL')) {
+if(!defined('LEPTON_URL')) {
 	header('Location: ../index.php');
 	exit(0);
 }
@@ -88,7 +88,7 @@ function topics_archive_file ($filename, $t_id, $s_id, $p_id) {
 	//global $topics_directory_depth;
 
 	//Asume, everything is alright if we came so far
-	//$filename = WB_PATH.$topics_directory.$link.PAGE_EXTENSION;
+	//$filename = LEPTON_PATH.$topics_directory.$link.PAGE_EXTENSION;
 	//echo $filename;
 	if (file_exists($filename)) { unlink($filename);}
 
@@ -99,7 +99,7 @@ $section_id = '.$s_id.';
 $topic_id = '.$t_id.';
 define("TOPIC_ID", '.$t_id.');
 require("'.TOPICS_DIRECTORY_DEPTH.'config.php");
-require(WB_PATH."/index.php");
+require(LEPTON_PATH."/index.php");
 
 ?>';
 	$handle = fopen($filename, 'w');
@@ -130,7 +130,7 @@ function get_any_sections ($section) {
 	$section_id = $section;
 
 	ob_start();
-	include(WB_PATH.'/modules/'.$fetch_result['module'].'/view.php');
+	include(LEPTON_PATH.'/modules/'.$fetch_result['module'].'/view.php');
 	$content=ob_get_contents();
 	ob_end_clean();
 

@@ -30,13 +30,13 @@ $tablename = $mod_dir;
 
 // Check if there is a post id
 if(!isset($_GET['id']) OR !is_numeric($_GET['id']) OR !isset($_GET['sid']) OR !is_numeric($_GET['sid'])) {
-	header("Location: ".WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=1');
+	header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=1');
 	exit(0);
 }
 $topic_id = (int) $_GET['id'];
 $section_id = (int) $_GET['sid'];
 if (($topic_id  * $section_id) == 0) {
-	header("Location: ".WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=2');
+	header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=2');
 	exit(0);
 }
 
@@ -54,7 +54,7 @@ if (isset($_COOKIE['comment'.$topic_id])) {
 
 if ($nok <> 1) {	
 	if ($the_comment > 0) {
-		header("Location: ".WB_URL.'/modules/'.$mod_dir.'/commentdone.php?cid='.$the_comment.'&tid='.$topic_id );
+		header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/commentdone.php?cid='.$the_comment.'&tid='.$topic_id );
 		exit(0);
 	}
 }
@@ -62,7 +62,7 @@ if ($nok <> 1) {
 // Query post for page id
 $res = $database->query("SELECT topic_id,title,section_id,page_id FROM ".TABLE_PREFIX."mod_".$tablename." WHERE topic_id = '$topic_id'");
 if($res->numRows() == 0) {
-	header("Location: ".WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=3');
+	header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=3');
 	exit(0);
 } else {
 	$fetch_topic = $res->fetchRow();
@@ -94,21 +94,21 @@ if($res->numRows() == 0) {
 		AND (p.published_when = '0' OR p.published_when <= $t) AND (p.published_until = 0 OR p.published_until >= $t)
 	");
 	if($query->numRows() == 0) {
-		header("Location: ".WB_URL.PAGES_DIRECTORY."");
+		header("Location: ".LEPTON_URL.PAGES_DIRECTORY."");
 		exit(0);
 	}
 //--------------------------------------------------
 */
 	// don't allow commenting if ASP enabled and user doesn't comes from the right view.php
 	if(ENABLED_ASP && (!isset($_SESSION['comes_from_view']) OR $_SESSION['comes_from_view']!=TOPIC_ID)) {
-		header("Location: ".WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=4');
+		header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=4');
 		exit(0);
 	}
 
 	// Get page details
 	$query_page = $database->query("SELECT parent,page_title,menu_title,keywords,description,visibility FROM ".TABLE_PREFIX."pages WHERE page_id = '$page_id'");
 	if($query_page->numRows() == 0) {
-		header("Location: ".WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=5');
+		header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=5');
 		exit(0);
 	} else {
 		
@@ -118,12 +118,12 @@ if($res->numRows() == 0) {
 		
 
 		// Required page details
-		define('PAGE_CONTENT', WB_PATH.'/modules/'.$mod_dir.'/comment_page.php');
+		define('PAGE_CONTENT', LEPTON_PATH.'/modules/'.$mod_dir.'/comment_page.php');
 		// Include index (wrapper) file
-		//require(WB_PATH.'/index.php');
+		//require(LEPTON_PATH.'/index.php');
 		
 		//von Chio eingefügt
-		require(WB_PATH.'/modules/'.$mod_dir.'/commentframe.php');
+		require(LEPTON_PATH.'/modules/'.$mod_dir.'/commentframe.php');
 		
 		
 	}

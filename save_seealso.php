@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_POST['topic_id']) OR !is_numeric($_POST['topic_id'])) {
@@ -15,7 +15,7 @@ $update_when_modified = true; // Tells script to update when this page was last 
 require('permissioncheck.php');
 
 // Include WB functions file
-require(WB_PATH.'/framework/summary.functions.php');
+require(LEPTON_PATH.'/framework/summary.functions.php');
 
 $topiclinks_text = '';
 if (isset($_POST['topiclinks'])) {
@@ -32,8 +32,8 @@ if (isset($_POST['topiclinks'])) {
 $database->query("UPDATE ".TABLE_PREFIX."mod_".$tablename." SET see_also = '$topiclinks_text' WHERE topic_id = '$topic_id'");
 
 // Check if there is a db error, otherwise say successful
-$gobackto = WB_URL.'/modules/'.$mod_dir.'/topicslist.php';
-if ($topic_seealso_support == 'bakery') {$gobackto = WB_URL.'/modules/'.$mod_dir.'/topicslist-bakery.php';}
+$gobackto = LEPTON_URL.'/modules/'.$mod_dir.'/topicslist.php';
+if ($topic_seealso_support == 'bakery') {$gobackto = LEPTON_URL.'/modules/'.$mod_dir.'/topicslist-bakery.php';}
 $gobackto .= '?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$id.'&fredit='.$fredit;
 
 if($database->is_error()) {

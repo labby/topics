@@ -29,9 +29,9 @@ require('permissioncheck.php');
 
 // Load correct help fil
 if(LANGUAGE_LOADED) {
-    $help = WB_PATH.'/modules/'.$mod_dir.'/languages/help-EN.php';
-    if(file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/help-'.LANGUAGE.'.php')) {
-        $help = WB_PATH.'/modules/'.$mod_dir.'/languages/help-'.LANGUAGE.'.php';
+    $help = LEPTON_PATH.'/modules/'.$mod_dir.'/languages/help-EN.php';
+    if(file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/help-'.LANGUAGE.'.php')) {
+        $help = LEPTON_PATH.'/modules/'.$mod_dir.'/languages/help-'.LANGUAGE.'.php';
     }
 }
 

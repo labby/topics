@@ -24,12 +24,12 @@
 */
 
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 // obtain module directory
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
 
-$mpath = WB_PATH.'/modules/'.$mod_dir.'/';
+$mpath = LEPTON_PATH.'/modules/'.$mod_dir.'/';
 if (!file_exists($mpath.'module_settings.php')) { copy($mpath.'defaults/module_settings.default.php', $mpath.'module_settings.php') ; }
 if (!file_exists($mpath.'frontend.css')) { copy($mpath.'defaults/frontend.default.css', $mpath.'frontend.css') ; }
 if (!file_exists($mpath.'comment_frame.css')) { copy($mpath.'defaults/comment_frame.default.css', $mpath.'comment_frame.css') ; }
@@ -74,7 +74,7 @@ if (isset($firsttopic)) {
 	// Get the id
 	$topic_id = $database->get_one("SELECT LAST_INSERT_ID()");
 	
-	$filename = WB_PATH.$topics_directory.'welcome'.PAGE_EXTENSION;
+	$filename = LEPTON_PATH.$topics_directory.'welcome'.PAGE_EXTENSION;
 	define('TOPICS_DIRECTORY_DEPTH', $topics_directory_depth);
 	topics_archive_file ($filename, $topic_id, $section_id, $page_id);
 }

@@ -2,17 +2,17 @@
 
 // Include config file
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
-$mpath = WB_PATH.'/modules/'.$mod_dir.'/';
+$mpath = LEPTON_PATH.'/modules/'.$mod_dir.'/';
 // include module_settings
-require_once(WB_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
-require_once(WB_PATH.'/modules/'.$mod_dir.'/module_settings.php');
-require_once (WB_PATH.'/modules/'.$mod_dir.'/functions_small.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/module_settings.php');
+require_once (LEPTON_PATH.'/modules/'.$mod_dir.'/functions_small.php');
 
-require_once(WB_PATH.'/framework/class.wb.php');
+require_once(LEPTON_PATH.'/framework/class.wb.php');
 $wb = new wb;
 
 
@@ -29,10 +29,10 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 	} else {
 		$commentpost = $_POST['comment'];
 	}
-	$comment = $addslashes(trim(strip_tags($commentpost)));
-	$thename = $addslashes(trim(strip_tags($_POST['thenome'])));
-	$thesite = $addslashes(trim(strip_tags($_POST['thesote'])));
-	$themail = $addslashes(trim(strip_tags($_POST['themoil'])));
+	$comment = addslashes(trim(strip_tags($commentpost)));
+	$thename = addslashes(trim(strip_tags($_POST['thenome'])));
+	$thesite = addslashes(trim(strip_tags($_POST['thesote'])));
+	$themail = addslashes(trim(strip_tags($_POST['themoil'])));
 	$page_id = (int) $_GET['page_id'];
 	$section_id = (int) $_GET['section_id'];
 	$topic_id = (int) $_GET['topic_id'];
@@ -40,7 +40,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 	// Check captcha
 	$query_settings = $database->query("SELECT use_captcha,default_link, various_values, commenting FROM ".TABLE_PREFIX."mod_".$tablename."_settings WHERE section_id = '$section_id'");
 	if($query_settings->numRows() == 0) { 
-		exit(header('Location: '.WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=6')); //exit(header("Location: ".WB_URL.PAGES_DIRECTORY.""));
+		exit(header('Location: '.LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=6')); //exit(header("Location: ".LEPTON_URL.PAGES_DIRECTORY.""));
 		
 	} else {
 		$settings = $query_settings->fetchRow();
@@ -64,11 +64,11 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 		if ($use_commenting_settings == 1) { $commenting = $settings['commenting'];}
 		
 		if ($commenting < 1) { 
-			exit(header('Location: '.WB_URL.'/modules/'.$mod_dir.'/nopage.php?err=7')); 
+			exit(header('Location: '.LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php?err=7')); 
 		}
 		
-		$topic_link = WB_URL.$topics_virtual_directory.$link.PAGE_EXTENSION;		
-		$backend_link = WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$topic_id;
+		$topic_link = LEPTON_URL.$topics_virtual_directory.$link.PAGE_EXTENSION;		
+		$backend_link = LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$topic_id;
 				
 		
 		if ($commenting < 2) { //Einstellung: Moderiert
@@ -93,7 +93,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 			($_POST['email'] OR $_POST['url'] OR $_POST['homepage'] OR $_POST['comment']) // honeypot-fields
 		)) {
 		exit ("fehler ENABLED_ASP");
-			//exit(header("Location: ".WB_URL.PAGES_DIRECTORY.""));
+			//exit(header("Location: ".LEPTON_URL.PAGES_DIRECTORY.""));
 		}
 		if(ENABLED_ASP) {
 			if(isset($_SESSION['captcha_retry_topics'])) unset($_SESSION['captcha_retry_topics']);
@@ -107,7 +107,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 					$_SESSION['comment_sote'] = $thesite;
 					$_SESSION['comment_moil'] = $themail;
 					$_SESSION['comment_body'] = $comment;
-					exit(header('Location: '.WB_URL."/modules/".$mod_dir."/comment.php?id=$topic_id&sid=$section_id&nok=1"));
+					exit(header('Location: '.LEPTON_URL."/modules/".$mod_dir."/comment.php?id=$topic_id&sid=$section_id&nok=1"));
 				}
 			} else {
 				$_SESSION['captcha_error'] = $MESSAGE['MOD_FORM']['INCORRECT_CAPTCHA'];
@@ -115,7 +115,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 				$_SESSION['comment_sote'] = $thesite;
 				$_SESSION['comment_moil'] = $themail;
 				$_SESSION['comment_body'] = $comment;
-				exit(header('Location: '.WB_URL."/modules/".$mod_dir."/comment.php?id=$topic_id&sid=$section_id&nok=1"));
+				exit(header('Location: '.LEPTON_URL."/modules/".$mod_dir."/comment.php?id=$topic_id&sid=$section_id&nok=1"));
 			}
 		}
 	}
@@ -196,7 +196,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 	}// End Mail
 	
 	if ($spamlevel > 1) {
-		exit(header("Location: ".WB_URL."/modules/".$mod_dir."/nopage.php")); //exit(header("Location: ".WB_URL.PAGES_DIRECTORY.""));
+		exit(header("Location: ".LEPTON_URL."/modules/".$mod_dir."/nopage.php")); //exit(header("Location: ".LEPTON_URL.PAGES_DIRECTORY.""));
 	}
 	
 	// Insert the comment into db
@@ -227,18 +227,18 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 	$Gueltigkeit = time()+3456000;	//40 Tage
 	setcookie("commentdetails", $last_insert, $gueltigkeit);
 		
-	header('Location: '.WB_URL."/modules/".$mod_dir."/commentdone.php?cid=$last_insert&tid=$topic_id");
+	header('Location: '.LEPTON_URL."/modules/".$mod_dir."/commentdone.php?cid=$last_insert&tid=$topic_id");
 	//ende chio
 	
 	
 	
 } else {
 	if(isset($_GET['topic_id']) AND is_numeric($_GET['topic_id']) AND isset($_GET['section_id']) AND is_numeric($_GET['section_id'])) {
-		header('Location: '.WB_URL.'/modules/'.$mod_dir.'/comment.php?id='.$topic_id.'&sid='.$_GET['section_id']);
+		header('Location: '.LEPTON_URL.'/modules/'.$mod_dir.'/comment.php?id='.$topic_id.'&sid='.$_GET['section_id']);
 	} else {
 		exit ("das wars");
 	}
-		//exit(header("Location: ".WB_URL.PAGES_DIRECTORY.""));
+		//exit(header("Location: ".LEPTON_URL.PAGES_DIRECTORY.""));
 }
 
 ?>

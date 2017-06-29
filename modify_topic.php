@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_GET['topic_id']) OR !is_numeric($_GET['topic_id'])) {
@@ -65,24 +65,24 @@ if(!isset($settings_fetch['various_values'])){
 
 
 // Ist das richtig? brauchen wir das?
-if (!defined('WYSIWYG_EDITOR') OR WYSIWYG_EDITOR=="none" OR !file_exists(WB_PATH.'/modules/'.WYSIWYG_EDITOR.'/include.php')) {
+if (!defined('WYSIWYG_EDITOR') OR WYSIWYG_EDITOR=="none" OR !file_exists(LEPTON_PATH.'/modules/'.WYSIWYG_EDITOR.'/include.php')) {
 	function show_wysiwyg_editor($name,$id,$content,$width,$height) {
 		echo '<textarea name="'.$name.'" id="'.$id.'" rows="30" cols="3" style="width: '.$width.'; height: '.$height.';">'.$content.'</textarea>';
 	}
 } else {
 	$id_list=array("short","long","extra");
-	require(WB_PATH.'/modules/'.WYSIWYG_EDITOR.'/include.php');
+	require(LEPTON_PATH.'/modules/'.WYSIWYG_EDITOR.'/include.php');
 }
 
 //---------
 
 // include jscalendar-setup
 $jscal_use_time = true; // whether to use a clock, too
-require_once(WB_PATH."/include/jscalendar/wb-setup.php");
+require_once(LEPTON_PATH."/include/jscalendar/wb-setup.php");
 
 $hascontent = $fetch_content['hascontent'];
 if ($hascontent  > 0 AND $fetch_content['active'] > 0) {
-	$topic_link = WB_URL.$topics_directory.$fetch_content['link'].PAGE_EXTENSION;
+	$topic_link = LEPTON_URL.$topics_directory.$fetch_content['link'].PAGE_EXTENSION;
 	echo '<div style="float:right; width:50px;"><a href="'.$topic_link.'" target="_blank" ><img src="'.THEME_URL.'/images/view_16.png" class="viewbutton" alt="View" /></a></div>';
 } ?>
 
@@ -91,7 +91,7 @@ if ($hascontent  > 0 AND $fetch_content['active'] > 0) {
 <?php
 $leptoken = (defined('LEPTON_VERSION') && isset($_GET['leptoken'])) ? sprintf('?leptoken=%s', $_GET['leptoken']) : '';
 ?>
-<form name="modify" action="<?php echo WB_URL.'/modules/'.$mod_dir; ?>/save_topic.php<?php echo $leptoken; ?>" method="post" style="margin: 0;">
+<form name="modify" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/save_topic.php<?php echo $leptoken; ?>" method="post" style="margin: 0;">
 <input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
 <input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
 <input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>" />
@@ -207,16 +207,16 @@ if ($use_pictures > 0) {
 			if ($suggest_id == 0) {$suggest_id = $use_pictures;}
 		}
 
-		$file_dir= WB_PATH.''.$picture_dir;
+		$file_dir= LEPTON_PATH.''.$picture_dir;
 		if ($picfile == '') {
-			if(file_exists(WB_PATH.$picture_dir.'/'.$suggest_id.'.jpg')) {
+			if(file_exists(LEPTON_PATH.$picture_dir.'/'.$suggest_id.'.jpg')) {
 				$picfile = ''.$suggest_id.'.jpg';
-				$previewpic = WB_URL.$picture_dir.'/'.$suggest_id.'.jpg';
+				$previewpic = LEPTON_URL.$picture_dir.'/'.$suggest_id.'.jpg';
 			} else {
-				$previewpic =  WB_URL . '/modules/'.$mod_dir.'/img/nopic.jpg';
+				$previewpic =  LEPTON_URL . '/modules/'.$mod_dir.'/img/nopic.jpg';
 			}
 		} else {
-			$previewpic =  WB_URL.$picture_dir.'/'.$picfile.'?t='.time();
+			$previewpic =  LEPTON_URL.$picture_dir.'/'.$picfile.'?t='.time();
 
 		}
 		if (substr($picfile, 0, 7) == 'http://') {$previewpic = $picfile; }
@@ -378,7 +378,7 @@ if($query_others->numRows() > 1 AND $author_trust_rating < 2) {
 }
 
 $modifyurl = ADMIN_URL.'/pages/modify.php?page_id='.$page_id;
-if ($fredit == 1) {$modifyurl = WB_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1';}
+if ($fredit == 1) {$modifyurl = LEPTON_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1';}
 ?>
 </td>
 </tr></table>
@@ -431,7 +431,7 @@ if ($fredit == 1) {$modifyurl = WB_URL.'/modules/'.$mod_dir.'/modify_fe.php?page
 
 <?php if ($picture_dir <> "") { echo '
 <script type="text/javascript">
-	var topicpicloc = "'.WB_URL.''.$picture_dir.'/";
+	var topicpicloc = "'.LEPTON_URL.''.$picture_dir.'/";
 </script>';
 } ?>
 
@@ -490,7 +490,7 @@ if($query_topics->numRows() > 1) { //Shit, cant find the bug, should be > 1
 	echo '<table class="pnsa_links"><tr><td class="pn_links">';
 	$frombackend = true;
 	if (!defined('TOPIC_ID')) {define('TOPIC_ID', $topic_id); }
-	$picture_dir = WB_URL.$settings_fetch['picture_dir'];
+	$picture_dir = LEPTON_URL.$settings_fetch['picture_dir'];
 	if ($authoronly == false) {
 		include('inc/find_pnsa_links.inc.php');
 		if ($see_prevnext_output != '') {echo $see_prevnext_output;} else {echo $TEXT['NONE_FOUND'];}
@@ -517,11 +517,11 @@ if($query_topics->numRows() > 1) { //Shit, cant find the bug, should be > 1
 	echo '<a class="topic-modifytopic-duplicate" href="javascript:copythistopic()">'.$MOD_TOPICS['COPYTOPIC']."</a>\n";
 
 	
-	if ($showoptions) {echo '<a class="topic-modifytopic-settings" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$TEXT['SETTINGS']."</a>\n";}
-	if ($showoptions) {echo '<a class="topic-modifytopic-help" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$MENU['HELP']."</a>\n";}
+	if ($showoptions) {echo '<a class="topic-modifytopic-settings" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_settings.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$TEXT['SETTINGS']."</a>\n";}
+	if ($showoptions) {echo '<a class="topic-modifytopic-help" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'">'.$MENU['HELP']."</a>\n";}
 
 	if ($author_trust_rating < 3) {
-		echo '<a class="topic-modifytopic-delete" href="javascript: confirm_link(\''.$TEXT['ARE_YOU_SURE']. '\', \''.WB_URL.'/modules/'.$mod_dir.'/delete_topic.php?'.$params.'\');" title="'.$TEXT['DELETE'].'">'.$TEXT['DELETE'].'</a>';
+		echo '<a class="topic-modifytopic-delete" href="javascript: confirm_link(\''.$TEXT['ARE_YOU_SURE']. '\', \''.LEPTON_URL.'/modules/'.$mod_dir.'/delete_topic.php?'.$params.'\');" title="'.$TEXT['DELETE'].'">'.$TEXT['DELETE'].'</a>';
 	}
 
 
@@ -548,7 +548,7 @@ if($query_comments->numRows() > 0) {
 <table cellpadding="2" cellspacing="0" border="0" width="100%">
 	<?php
 	while($comment = $query_comments->fetchRow( MYSQL_ASSOC )) {
-		$editcommentlink = WB_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter.'comment_id='.$comment['comment_id'].'" title="'.$TEXT['MODIFY'].'"';
+		$editcommentlink = LEPTON_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter.'comment_id='.$comment['comment_id'].'" title="'.$TEXT['MODIFY'].'"';
 		?><tr class="row_<?php echo $row; ?>">
 			<td width="20" style="padding-left: 5px;"><a href="<?php echo $editcommentlink; ?>"><img src="<?php echo THEME_URL; ?>/images/modify_16.png" border="0" alt="" title="edit" /></a></td>
 			<td><a href="<?php echo $editcommentlink.'"><b>'.$comment['name'].'</b></a><br/><small>'.$comment['comment'].'</small>'; ?></td>
@@ -557,7 +557,7 @@ if($query_comments->numRows() > 0) {
 
 
 			<td width="20">
-				<a href="javascript: confirm_link('<?php echo $TEXT['ARE_YOU_SURE']; ?>', '<?php echo WB_URL.'/modules/'.$mod_dir; ?>/delete_comment.php?page_id=<?php echo $page_id.$paramdelimiter; ?>section_id=<?php echo $section_id.$paramdelimiter; ?>topic_id=<?php echo $topic_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter; ?>comment_id=<?php echo $comment['comment_id']; ?>');" title="<?php echo $TEXT['DELETE']; ?>">
+				<a href="javascript: confirm_link('<?php echo $TEXT['ARE_YOU_SURE']; ?>', '<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/delete_comment.php?page_id=<?php echo $page_id.$paramdelimiter; ?>section_id=<?php echo $section_id.$paramdelimiter; ?>topic_id=<?php echo $topic_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter; ?>comment_id=<?php echo $comment['comment_id']; ?>');" title="<?php echo $TEXT['DELETE']; ?>">
 					<img src="<?php echo THEME_URL; ?>/images/delete_16.png" border="0" alt="X" />
 				</a>
 			</td>

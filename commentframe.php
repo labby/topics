@@ -27,10 +27,10 @@ $starttime = array_sum(explode(" ",microtime()));
 
 // Include config file
 //require_once('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 
-require_once(WB_PATH.'/framework/class.frontend.php');
+require_once(LEPTON_PATH.'/framework/class.frontend.php');
 // Create new frontend object
 $wb = new frontend();
 

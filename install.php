@@ -21,7 +21,7 @@
 
 */
 
-if(!defined('WB_URL')) { die(); }
+if(!defined('LEPTON_URL')) { die(); }
 
 global $database;
 global $admin;
@@ -165,8 +165,8 @@ if (!$database->query($SQL))
   $admin->print_error($database->get_error());
 
 // Make topics post access files dir
-require_once(WB_PATH.'/framework/summary.functions.php');
-if(make_dir(WB_PATH.PAGES_DIRECTORY.'/'.$tablename)) {
+require_once(LEPTON_PATH.'/framework/summary.functions.php');
+if(make_dir(LEPTON_PATH.PAGES_DIRECTORY.'/'.$tablename)) {
     // Add a index.php file to prevent directory spoofing
     $content = "<?php
 
@@ -196,28 +196,28 @@ header('Location: ../');
 
 
 
-  $handle = fopen(WB_PATH.PAGES_DIRECTORY.'/'.$tablename.'/index.php', 'w');
+  $handle = fopen(LEPTON_PATH.PAGES_DIRECTORY.'/'.$tablename.'/index.php', 'w');
   fwrite($handle, $content);
   fclose($handle);
-  change_mode(WB_PATH.PAGES_DIRECTORY.'/'.$tablename.'/index.php', 'file');
+  change_mode(LEPTON_PATH.PAGES_DIRECTORY.'/'.$tablename.'/index.php', 'file');
 }
 
 
 //Create folders and copy example pics
-$picpath = WB_PATH.MEDIA_DIRECTORY.'/'.$tablename.'-pictures';
+$picpath = LEPTON_PATH.MEDIA_DIRECTORY.'/'.$tablename.'-pictures';
 make_dir($picpath);
-$frompath = (WB_PATH.'/modules/'.$mod_dir.'/img/');
+$frompath = (LEPTON_PATH.'/modules/'.$mod_dir.'/img/');
 if (!file_exists($picpath.'/1.jpg')) { copy($frompath.'1.jpg', $picpath.'/1.jpg') ; }
 if (!file_exists($picpath.'/2.jpg')) { copy($frompath.'2.jpg', $picpath.'/2.jpg') ; }
 if (!file_exists($picpath.'/3.jpg')) { copy($frompath.'3.jpg', $picpath.'/3.jpg') ; }
 
-$picpath = WB_PATH.MEDIA_DIRECTORY.'/'.$tablename.'-pictures/thumbs';
+$picpath = LEPTON_PATH.MEDIA_DIRECTORY.'/'.$tablename.'-pictures/thumbs';
 make_dir($picpath);
 if (!file_exists($picpath.'/1.jpg')) { copy($frompath.'thumb1.jpg', $picpath.'/1.jpg') ; }
 if (!file_exists($picpath.'/2.jpg')) { copy($frompath.'thumb2.jpg', $picpath.'/2.jpg') ; }
 if (!file_exists($picpath.'/3.jpg')) { copy($frompath.'thumb3.jpg', $picpath.'/3.jpg') ; }
 
-$picpath = WB_PATH.MEDIA_DIRECTORY.'/'.$tablename.'-pictures/zoom';
+$picpath = LEPTON_PATH.MEDIA_DIRECTORY.'/'.$tablename.'-pictures/zoom';
 make_dir($picpath);
 if (!file_exists($picpath.'/1.jpg')) { copy($frompath.'zoom1.jpg', $picpath.'/1.jpg') ; }
 if (!file_exists($picpath.'/2.jpg')) { copy($frompath.'zoom2.jpg', $picpath.'/2.jpg') ; }
@@ -225,7 +225,7 @@ if (!file_exists($picpath.'/3.jpg')) { copy($frompath.'zoom3.jpg', $picpath.'/3.
 
 
 //Copy settings files
-$mpath = WB_PATH.'/modules/'.$mod_dir.'/';
+$mpath = LEPTON_PATH.'/modules/'.$mod_dir.'/';
 if (!file_exists($mpath.'module_settings.php')) { copy($mpath.'defaults/module_settings.default.php', $mpath.'module_settings.php') ; }
 if (!file_exists($mpath.'frontend.css')) { copy($mpath.'defaults/frontend.default.css', $mpath.'frontend.css') ; }
 if (!file_exists($mpath.'comment_frame.css')) { copy($mpath.'defaults/comment_frame.default.css', $mpath.'comment_frame.css') ; }

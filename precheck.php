@@ -21,7 +21,7 @@
 
 */
 
-if(!defined('WB_URL')) { die(); }
+if(!defined('LEPTON_URL')) { die(); }
 
 // Checking Requirements
 

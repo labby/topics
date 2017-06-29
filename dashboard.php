@@ -2,12 +2,12 @@
 
 
 // Must include code to stop this file being access directly
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 
 
 if (!$wb->is_authenticated()) { 
-	echo '<h1>Hi!</h1><a href="'.WB_URL.'/account/login.php">Login</a>' ;
+	echo '<h1>Hi!</h1><a href="'.LEPTON_URL.'/account/login.php">Login</a>' ;
 
 } else {
 
@@ -17,19 +17,19 @@ if (!$wb->is_authenticated()) {
 	
 	// Load Language file
 	if(LANGUAGE_LOADED) {
-		if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
-			require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
+		if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
+			require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
 		} else {
-			require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
+			require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
 		}
 	}
 
 
 
 	// include module_settings
-	require_once(WB_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
-	require_once(WB_PATH.'/modules/'.$mod_dir.'/module_settings.php');
-	require_once(WB_PATH.'/modules/'.$mod_dir.'/functions.php');
+	require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/defaults/module_settings.default.php');
+	require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/module_settings.php');
+	require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/functions.php');
 
 
 	$user_id = $wb->get_user_id();
@@ -62,7 +62,7 @@ if (!$wb->is_authenticated()) {
 	$counter = 0;
 	$public = 0;
 	$comments_count = 0;
-	$picsurl = WB_URL.'/modules/'.$mod_dir.'/img/';
+	$picsurl = LEPTON_URL.'/modules/'.$mod_dir.'/img/';
 
 	$output1 = '';
 	$output2 = '';
@@ -87,7 +87,7 @@ if (!$wb->is_authenticated()) {
 			$active = $topic['active']; if ($active > 2) $public += 1;			
 			$trclass = '';
 		
-			$edit_link = '<a class="tp_editlink" target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$topic['page_id'].$paramdelimiter.'section_id='.$topic['section_id'].$paramdelimiter.'topic_id='.$t_id.$paramdelimiter.'fredit='.$fredit.'">';
+			$edit_link = '<a class="tp_editlink" target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$topic['page_id'].$paramdelimiter.'section_id='.$topic['section_id'].$paramdelimiter.'topic_id='.$t_id.$paramdelimiter.'fredit='.$fredit.'">';
 
 			if ($authoronly) {
 				$authors = $topic['authors'];
@@ -121,7 +121,7 @@ if (!$wb->is_authenticated()) {
 			
 		
 			if ($topic['hascontent'] > 0 AND $active > 0) { 
-				$topic_link = WB_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
+				$topic_link = LEPTON_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
 		 		$tr .=  '<a href="'.$topic_link.'" target="_blank" ><img src="'.THEME_URL.'/images/view_16.png" class="viewbutton" alt="View" /></a>';
 			} 
 		
@@ -135,7 +135,7 @@ if (!$wb->is_authenticated()) {
 			}
 		}
 		if (isset($newpage_id) AND isset($newsection_id)) {
-			echo '<h2><a class="tp_editlink" target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/add_topic.php?page_id='.$newpage_id.$paramdelimiter.'section_id='.$newsection_id.$paramdelimiter.'fredit='.$fredit.'">'.$MOD_TOPICS['NEWTOPIC']."</a>";
+			echo '<h2><a class="tp_editlink" target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/add_topic.php?page_id='.$newpage_id.$paramdelimiter.'section_id='.$newsection_id.$paramdelimiter.'fredit='.$fredit.'">'.$MOD_TOPICS['NEWTOPIC']."</a>";
 		}
 		if ($output1 != '') {echo '<h2>You are owner of:</h2><table width="100%" border="0" cellspacing="0" cellpadding="3">'.$output1.'</table>';}
 		if ($output2 != '') {echo '<h2>You can edit also:</h2><table width="100%" border="0" cellspacing="0" cellpadding="3">'.$output2.'</table>';}
@@ -152,7 +152,7 @@ if (!$wb->is_authenticated()) {
 		$query_comment = $database->query($theq); // 
 		while($comment = $query_comment->fetchRow()) {
 			$t_id = $comment['topic_id'];
-			$editlink = WB_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$allcommentsArr[$t_id][0].$paramdelimiter.'section_id='.$allcommentsArr[$t_id][1].$paramdelimiter.'comment_id='.$comment['comment_id'].$paramdelimiter.'fredit='.$fredit;
+			$editlink = LEPTON_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$allcommentsArr[$t_id][0].$paramdelimiter.'section_id='.$allcommentsArr[$t_id][1].$paramdelimiter.'comment_id='.$comment['comment_id'].$paramdelimiter.'fredit='.$fredit;
 			$cwebsite = ($comment['website']);
 			$nameLink = $comment['name'];
 			if ($cwebsite != '') { $nameLink = '<a href="'.$cwebsite.'" target="_blank">'.$nameLink.'</a>';}

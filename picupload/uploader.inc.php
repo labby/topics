@@ -1,5 +1,5 @@
 <?php
-if(!defined('WB_PATH')) { 	die("sorry, no access..");}
+if(!defined('LEPTON_PATH')) { 	die("sorry, no access..");}
 
 function checkforsame($w_soll, $h_soll, $width, $height) {
 	if ($w_soll == 0 OR $h_soll == 0) {
@@ -20,7 +20,7 @@ $query_settings = $database->query("SELECT * FROM ".TABLE_PREFIX."mod_".$tablena
 if($query_settings->numRows() != 1) { die('Wahh!'); }
 $settings_fetch = $query_settings->fetchRow();
 $picture_dir = $settings_fetch['picture_dir'];
-$picture_dirurl = WB_URL.$settings_fetch['picture_dir'];
+$picture_dirurl = LEPTON_URL.$settings_fetch['picture_dir'];
 
 $vv = explode(',',$settings_fetch['picture_values'].',-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2');
 $w_zoom = (int) $vv[0]; if ($w_zoom == -2) {$w_zoom = 1000;}
@@ -34,14 +34,14 @@ $h_thumb = (int) $vv[5]; if ($h_thumb == -2) {$h_thumb = 100;}
 
 
 
-$picture_dir = WB_PATH.$picture_dir;
+$picture_dir = LEPTON_PATH.$picture_dir;
 
 if (($w_view == 0 AND $h_view == 0) OR ($w_thumb == 0 AND $h_thumb == 0)) {
 	echo '<p>no dimensions given! <a href="javascript:window.history.back()">BACK</a></p>';
 	die();
 }
 
-require_once(WB_PATH."/framework/summary.functions.php");
+require_once(LEPTON_PATH."/framework/summary.functions.php");
 require_once("imagefunctions.php");
 
 if (!$_FILES['uploadpic']['tmp_name'] OR $_FILES['uploadpic']['tmp_name'] == '') {

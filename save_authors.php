@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_POST['topic_id']) OR !is_numeric($_POST['topic_id'])) {
@@ -55,7 +55,7 @@ if ($_POST['set_author'] == 1) {
 
 
 // Check if there is a db error, otherwise say successful
-$gobackto = WB_URL.'/modules/'.$mod_dir.'/modify_topic.php';
+$gobackto = LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php';
 $gobackto .= '?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$id.'&fredit='.$fredit;
 
 if($database->is_error()) {

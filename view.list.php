@@ -1,6 +1,6 @@
 <?php
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 if (!isset($tablename))  { exit("No tables defined"); }
 
 
@@ -165,7 +165,7 @@ if($num_topics > 0) {
 		$thetu =  $topic['published_until'];
 		
 		// Work-out the topic link				
-		$topic_link = WB_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;				
+		$topic_link = LEPTON_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;				
 		if(isset($_GET['p']) AND $showoffset > 0) { $topic_link .= '?p='.$showoffset; } // If the link wasnt on the first page
 			
 		// Title + Link:
@@ -188,7 +188,7 @@ if($num_topics > 0) {
 			}
 		
 			if ($doarchive == true) {
-				$filename = WB_PATH.$topics_directory.$topic['link'].PAGE_EXTENSION;					
+				$filename = LEPTON_PATH.$topics_directory.$topic['link'].PAGE_EXTENSION;					
 				topics_archive_file ($filename, $t_id, $autoarchive_section, $autoarchive_page_id);
 				$theq = "UPDATE ".TABLE_PREFIX."mod_".$tablename." SET page_id = '".$autoarchive_page_id."', section_id = '".$autoarchive_section."' WHERE topic_id = '".$t_id."'";
 				$database->query($theq);
@@ -227,7 +227,7 @@ if($num_topics > 0) {
 					$picture_tag = '<img class="tp_pic tp_pic'.$page_id.'" src="'.$picture_dir.'/'.$picture.'" alt="" />';
 					if ($zoomclass != '') {
 						//Check if there is a picture in folder "zoom"
-						$zoompic = WB_PATH.$settings_fetch['picture_dir'].'/zoom/'.$picture;			
+						$zoompic = LEPTON_PATH.$settings_fetch['picture_dir'].'/zoom/'.$picture;			
 						if (file_exists($zoompic)) { $picture_tag = '<a href="'.$picture_dir.'/zoom/'.$picture.'" target="_blank" class="'.$zoomclass.'">'.$picture_tag.'</a>'; }		
 					}
 				}
@@ -313,7 +313,7 @@ if($num_topics > 0) {
 			$pos = strpos ($authors,','.$user_id.',');
 			if ($pos !== false){$makelisteditlink = true;}	
 		}
-		if ($makelisteditlink == 1) { $edit_link = '<div class="mod_topic_edit"><a class="tp_editlink" target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$topic['page_id'].$paramdelimiter.'section_id='.$topic['section_id'].$paramdelimiter.'topic_id='.$t_id.$paramdelimiter.'fredit='.$fredit.'">Edit</a></div>'; }
+		if ($makelisteditlink == 1) { $edit_link = '<div class="mod_topic_edit"><a class="tp_editlink" target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$topic['page_id'].$paramdelimiter.'section_id='.$topic['section_id'].$paramdelimiter.'topic_id='.$t_id.$paramdelimiter.'fredit='.$fredit.'">Edit</a></div>'; }
 
 
 		$user_changed_info = '';
@@ -375,7 +375,7 @@ if($num_topics > 0) {
 	}
 	
 } else {
-	$ntp = WB_PATH.'/modules/'.$mod_dir.'/inc/no_topics.inc.php';
+	$ntp = LEPTON_PATH.'/modules/'.$mod_dir.'/inc/no_topics.inc.php';
 	if (file_exists($ntp)) {
 		include($ntp);
 	} else {

@@ -1,7 +1,7 @@
 <?php
 
 // Stop this file from being accessed directly
-if(!defined('WB_URL')) {
+if(!defined('LEPTON_URL')) {
 	header('Location: ../index.php');
 	exit(0);
 }
@@ -169,18 +169,18 @@ function topics_createaccess_file ($old_link, $topic_link, $movetopic, $topics_d
 	global $admin;
 	global $MESSAGE;
 	
-	make_dir(WB_PATH.$topics_directory.'/');
-	if(!is_writable(WB_PATH.$topics_directory.'/')) {
+	make_dir(LEPTON_PATH.$topics_directory.'/');
+	if(!is_writable(LEPTON_PATH.$topics_directory.'/')) {
 		$admin->print_error($MESSAGE['PAGES']['CANNOT_CREATE_ACCESS_FILE']);
-	} elseif($old_link != $topic_link OR !file_exists(WB_PATH.$topics_directory.$topic_link.PAGE_EXTENSION) OR $movetopic > 0) {
+	} elseif($old_link != $topic_link OR !file_exists(LEPTON_PATH.$topics_directory.$topic_link.PAGE_EXTENSION) OR $movetopic > 0) {
 		// We need to create a new file
 		// First, delete old file if it exists
-		if(file_exists(WB_PATH.$topics_directory.$old_link.PAGE_EXTENSION)) {
-			unlink(WB_PATH.$topics_directory.$old_link.PAGE_EXTENSION);
+		if(file_exists(LEPTON_PATH.$topics_directory.$old_link.PAGE_EXTENSION)) {
+			unlink(LEPTON_PATH.$topics_directory.$old_link.PAGE_EXTENSION);
 		}
 		// Specify the filename
 		
-		$filename = WB_PATH.$topics_directory.$topic_link.PAGE_EXTENSION;	
+		$filename = LEPTON_PATH.$topics_directory.$topic_link.PAGE_EXTENSION;	
 		// Write to the filename
 		$content = '<?php
 $page_id = '.$page_id.';
@@ -188,7 +188,7 @@ $section_id = '.$section_id.';
 $topic_id = '.$topic_id.';
 define("TOPIC_ID", '.$topic_id.');
 require("'.$topics_directory_depth.'config.php");
-require(WB_PATH."/index.php");
+require(LEPTON_PATH."/index.php");
 ?>';
 		$handle = fopen($filename, 'w');
 		fwrite($handle, $content);

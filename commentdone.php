@@ -3,19 +3,19 @@
 // Include config file
 require('../../config.php');
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 
-require_once(WB_PATH.'/framework/class.wb.php');
+require_once(LEPTON_PATH.'/framework/class.wb.php');
 $wb = new wb;
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
 
 // Load Language file
 if(LANGUAGE_LOADED) {
-	if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
+	if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
 	} else {
-		require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
+		require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
 	}
 }
 

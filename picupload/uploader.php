@@ -1,6 +1,6 @@
 <?php 
 require_once(dirname(__FILE__).'/../../../config.php');
-if(!defined('WB_PATH')) { 	die("sorry, no access..");}
+if(!defined('LEPTON_PATH')) { 	die("sorry, no access..");}
 
 // Get id
 if(isset($_GET['section_id']) AND is_numeric($_GET['section_id']) AND isset($_GET['page_id']) AND is_numeric($_GET['page_id'])) {

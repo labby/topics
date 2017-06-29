@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_GET['topic_id']) OR !is_numeric($_GET['topic_id'])) {
@@ -60,7 +60,7 @@ if ($query_users->numRows() > 0) {
 	}
 	
 	?>
-	<form name="topicauthors" action="<?php echo WB_URL.'/modules/'.$mod_dir; ?>/save_authors.php" method="post" style="margin: 0;">
+	<form name="topicauthors" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/save_authors.php" method="post" style="margin: 0;">
     <input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
 	<input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
 	<input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>" />
@@ -122,7 +122,7 @@ if ($query_users->numRows() > 0) {
 				<?php if ($output != '') echo '<input name="save" type="submit" value="'.$TEXT['SAVE'].'" style="width: 100px; margin-top: 5px;" />'; ?>
 			</td>
 			<td align="right">
-				<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit; ?>';" style="width: 100px; margin-top: 5px;" />
+				<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit; ?>';" style="width: 100px; margin-top: 5px;" />
 			</td>
 		</tr>
 	</table>

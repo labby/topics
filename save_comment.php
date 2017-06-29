@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_POST['comment_id']) OR !is_numeric($_POST['comment_id']) OR !isset($_POST['topic_id']) OR !is_numeric($_POST['topic_id'])) {
@@ -16,7 +16,7 @@ require('permissioncheck.php');
 
 // Validate all fields
 if($admin->get_post('name') == '' AND $admin->get_post('comment') == '') {
-	$admin->print_error($MESSAGE['GENERIC']['FILL_IN_ALL'], WB_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.'&section_id='.$section_id.'&comment_id='.$id.'#comments');
+	$admin->print_error($MESSAGE['GENERIC']['FILL_IN_ALL'], LEPTON_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.'&section_id='.$section_id.'&comment_id='.$id.'#comments');
 } else {
 	$thename = trim($admin->get_post_escaped('name'));
 	$thesite = trim($admin->get_post_escaped('website'));
@@ -32,9 +32,9 @@ $database->query("UPDATE ".TABLE_PREFIX."mod_".$tablename."_comments SET name = 
 
 // Check if there is a db error, otherwise say successful
 if($database->is_error()) {
-	$admin->print_error($database->get_error(), WB_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit='.$fredit.'&comment_id='.$comment_id);
+	$admin->print_error($database->get_error(), LEPTON_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit='.$fredit.'&comment_id='.$comment_id);
 } else { 
-	$admin->print_success($TEXT['SUCCESS'], WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit.'&cid='.$comment_id.'#comments');
+	$admin->print_success($TEXT['SUCCESS'], LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit.'&cid='.$comment_id.'#comments');
 }
 
 if ($fredit == 1) {

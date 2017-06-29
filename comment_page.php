@@ -4,8 +4,8 @@
 // Make sure page cannot be accessed directly
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
-if(!defined('WB_URL')) { 
-	header("Location: ".WB_URL."/modules/".$mod_dir."/nopage.php");
+if(!defined('LEPTON_URL')) { 
+	header("Location: ".LEPTON_URL."/modules/".$mod_dir."/nopage.php");
 	exit(0);
 }
 $thedelimiter = "&amp;";
@@ -15,15 +15,15 @@ require_once(LEPTON_PATH.'/modules/captcha_control/captcha/captcha.php');
 // Get comments page template details from db
 $query_settings = $database->query("SELECT use_captcha,commenting, various_values, default_link FROM ".TABLE_PREFIX."mod_".$tablename."_settings WHERE section_id = '".SECTION_ID."'");
 if($query_settings->numRows() == 0) {
-	header("Location: ".WB_URL.'/modules/'.$mod_dir.'/nopage.php');
+	header("Location: ".LEPTON_URL.'/modules/'.$mod_dir.'/nopage.php');
 	exit(0);
 } else {
 // Load Language file
 	if(LANGUAGE_LOADED) {
-		if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
-			require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
+		if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php')) {
+			require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/EN.php');
 		} else {
-			require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
+			require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/'.LANGUAGE.'.php');
 		}
 	}
 	$settings = $query_settings->fetchRow();	
@@ -83,7 +83,7 @@ function validateForm() {
     <table id="wraptable"><tr><td>
 	<div class="topicsc_the_f">
 	<h3><?php echo $TEXT['COMMENT']; ?></h3>
-	<form name="comment" action="<?php echo WB_URL.'/modules/'.$mod_dir.'/submit_comment.php?page_id='.PAGE_ID.$thedelimiter.'section_id='.SECTION_ID.$thedelimiter.'topic_id='.TOPIC_ID; ?>" method="post" onsubmit="validateForm(); return document.returnValue">
+	<form name="comment" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir.'/submit_comment.php?page_id='.PAGE_ID.$thedelimiter.'section_id='.SECTION_ID.$thedelimiter.'topic_id='.TOPIC_ID; ?>" method="post" onsubmit="validateForm(); return document.returnValue">
 	
 	<?php if(ENABLED_ASP) { // add some honeypot-fields  // 
 	?>

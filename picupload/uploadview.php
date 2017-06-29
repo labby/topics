@@ -1,7 +1,7 @@
 
 <?php
 require_once(dirname(__FILE__).'/../../../config.php');
-if(!defined('WB_PATH')) { 	die("sorry, no access..");}
+if(!defined('LEPTON_PATH')) { 	die("sorry, no access..");}
 
 // Get id
 if(isset($_REQUEST['section_id']) AND is_numeric($_REQUEST['section_id']) AND isset($_REQUEST['page_id']) AND is_numeric($_REQUEST['page_id'])) {
@@ -13,14 +13,14 @@ if(isset($_REQUEST['section_id']) AND is_numeric($_REQUEST['section_id']) AND is
 
 
 include('getbasics.inc.php');
-$picture_dir = WB_PATH.$picture_dir;
+$picture_dir = LEPTON_PATH.$picture_dir;
 
 if (($w_view == 0 AND $h_view == 0) OR ($w_thumb == 0 AND $h_thumb == 0)) {
 	echo '<h2>no dimensions given!</h2><p><a href="javascript:window.history.back()">BACK</a></p>';
 	die();
 }
 
-require_once(WB_PATH."/framework/summary.functions.php");
+require_once(LEPTON_PATH."/framework/summary.functions.php");
 require_once("imagefunctions.php");
 
 

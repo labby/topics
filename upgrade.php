@@ -23,7 +23,7 @@
 
 //require('../../config.php');
 
-if (!defined('WB_PATH')) { die('Sopperlott!'); }
+if (!defined('LEPTON_PATH')) { die('Sopperlott!'); }
 
 global $database;
 global $admin;
@@ -86,11 +86,11 @@ if (!$database->query($SQL))
 
 $mod_dir = basename(dirname(__FILE__));
 $tablename = $mod_dir;
-require_once(WB_PATH.'/modules/'.$mod_dir.'/inc/upgrade.inc.php');
+require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/inc/upgrade.inc.php');
 
 // install or upgrade droplets
-if (file_exists(WB_PATH.'/modules/droplets/functions.inc.php')) {
-  include_once(WB_PATH.'/modules/droplets/functions.inc.php');
+if (file_exists(LEPTON_PATH.'/modules/droplets/functions.inc.php')) {
+  include_once(LEPTON_PATH.'/modules/droplets/functions.inc.php');
 }
 
 if (!function_exists('wb_unpack_and_import')) {
@@ -98,7 +98,7 @@ if (!function_exists('wb_unpack_and_import')) {
     global $admin, $database;
 
     // Include the PclZip class file
-    require_once (WB_PATH . '/include/pclzip/pclzip.lib.php');
+    require_once (LEPTON_PATH . '/include/pclzip/pclzip.lib.php');
 
     $errors = array();
     $count = 0;
@@ -161,6 +161,6 @@ if (!function_exists('wb_unpack_and_import')) {
   } // function wb_unpack_and_import()
 }
 // install the droplet(s)
-wb_unpack_and_import(WB_PATH.'/modules/topics/droplets/droplet_topics_rss_statistic.zip', WB_PATH . '/temp/unzip/');
+wb_unpack_and_import(LEPTON_PATH.'/modules/topics/droplets/droplet_topics_rss_statistic.zip', LEPTON_PATH . '/temp/unzip/');
 
 ?>

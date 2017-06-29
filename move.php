@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 require('permissioncheck.php');
 
 // Get id
@@ -19,13 +19,13 @@ $settings_fetch = $query_settings->fetchRow();
 $sort_topics = $settings_fetch['sort_topics'];
 
 // Include the ordering class
-require(WB_PATH.'/framework/class.order.php');
+require(LEPTON_PATH.'/framework/class.order.php');
 
 // Create new order object an reorder
 $order = new order($table, 'position', $id_field, 'section_id');
 
 $back_url = ADMIN_URL.'/pages/modify.php?page_id='.$page_id.'&hl='.$id.'#tpid'.$id;
-if ($fredit == 1) {$back_url = WB_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1&hl='.$id.'#tpid'.$id;}
+if ($fredit == 1) {$back_url = LEPTON_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1&hl='.$id.'#tpid'.$id;}
 
 
 if ( $sort_topics == 0) {

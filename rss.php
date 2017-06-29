@@ -12,14 +12,14 @@
  * @license http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution 3.0
  */
 
-if (!defined('WB_PATH'))
+if (!defined('LEPTON_PATH'))
 	require_once("../../config.php");
 
 global $database;
 
 // load the default settings
-require_once(WB_PATH.'/modules/'.basename(dirname(__FILE__)).'/defaults/module_settings.default.php');
-require_once(WB_PATH.'/modules/'.basename(dirname(__FILE__)).'/module_settings.php');
+require_once(LEPTON_PATH.'/modules/'.basename(dirname(__FILE__)).'/defaults/module_settings.default.php');
+require_once(LEPTON_PATH.'/modules/'.basename(dirname(__FILE__)).'/module_settings.php');
 
 // the Section ID is not set yet
 $section_id = 0;
@@ -73,7 +73,7 @@ if ($query->numRows() == 1) {
 	$section_title = $settings['section_title'];
 	$section_description = strip_tags($settings['section_description']);
 	$use_timebased_publishing = $settings['use_timebased_publishing'];
-	$picture_url = WB_URL.$settings['picture_dir'].'/';
+	$picture_url = LEPTON_URL.$settings['picture_dir'].'/';
 }
 else {
   // settings not found
@@ -99,7 +99,7 @@ $image_width_px = $image_width.'px';
 $last_publishing_date = 0;
 // loop through the topics
 while (false !== ($topic = $query->fetchRow())) {
-  $topic_link = WB_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;
+  $topic_link = LEPTON_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;
   $rfcdate = date('D, d M Y H:i:s O', (int) $topic["published_when"]);
   if ($last_publishing_date < (int) $topic['published_when'])
     $last_publishing_date = (int) $topic['published_when'];
@@ -107,9 +107,9 @@ while (false !== ($topic = $query->fetchRow())) {
   $content = stripslashes($topic["content_short"]);
   // we don't want any dbGlossary entries here...
   $content = str_replace('||', '', $content);
-  if (file_exists(WB_PATH .'/modules/droplets/droplets.php')) {
+  if (file_exists(LEPTON_PATH .'/modules/droplets/droplets.php')) {
     // we must process the droplets to get the real output content
-    include_once(WB_PATH .'/modules/droplets/droplets.php');
+    include_once(LEPTON_PATH .'/modules/droplets/droplets.php');
     if (function_exists('evalDroplets'))
       $content = evalDroplets($content);
   }
@@ -135,14 +135,14 @@ $topics .= <<<EOD
 EOD;
 } // while
 
-$link = WB_URL;
+$link = LEPTON_URL;
 $language = strtolower(DEFAULT_LANGUAGE);
 $category = WEBSITE_TITLE;
 if (count($parameters) > 0) {
-  $atom_link = WB_URL."/modules/topics/rss.php?".http_build_query($parameters);
+  $atom_link = LEPTON_URL."/modules/topics/rss.php?".http_build_query($parameters);
 }
 else
-  $atom_link = WB_URL."/modules/topics/rss.php";
+  $atom_link = LEPTON_URL."/modules/topics/rss.php";
 $charset = defined('DEFAULT_CHARSET') ? DEFAULT_CHARSET : 'utf-8';
 $rfcdate = date('D, d M Y H:i:s O', $last_publishing_date);
 

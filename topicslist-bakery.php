@@ -25,7 +25,7 @@
 
 require('../../config.php');
 
-require_once(WB_PATH."/include/jscalendar/jscalendar-functions.php");
+require_once(LEPTON_PATH."/include/jscalendar/jscalendar-functions.php");
 
 // Get id
 if(!isset($_GET['topic_id']) OR !is_numeric($_GET['topic_id'])) {
@@ -40,9 +40,9 @@ require('permissioncheck.php');
 
 
 // Include WB functions file
-require(WB_PATH.'/framework/summary.functions.php');
+require(LEPTON_PATH.'/framework/summary.functions.php');
 // Include the ordering class
-require(WB_PATH.'/framework/class.order.php');
+require(LEPTON_PATH.'/framework/class.order.php');
 
 
 
@@ -98,7 +98,7 @@ if($query_bakery->numRows() > 0) {
 	$row = 'a';
 	
 	?>
-	<form name="seealsolinks" action="<?php echo WB_URL.'/modules/'.$mod_dir; ?>/save_seealso.php" method="post" style="margin: 0;">
+	<form name="seealsolinks" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/save_seealso.php" method="post" style="margin: 0;">
      <input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
 	<input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
 	<input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>" />
@@ -121,7 +121,7 @@ if($query_bakery->numRows() > 0) {
 		
 		
 		
-		<?php $topic_link = WB_URL.$bakery['link'].PAGE_EXTENSION;
+		<?php $topic_link = LEPTON_URL.$bakery['link'].PAGE_EXTENSION;
 			echo '<strong>'.stripslashes($bakery['title']).'</strong>';		
 		?></td>
 		<td class="topicprops">

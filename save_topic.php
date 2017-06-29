@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 // Get id
 if(!isset($_POST['topic_id']) OR !is_numeric($_POST['topic_id'])) {
@@ -13,7 +13,7 @@ if(!isset($_POST['topic_id']) OR !is_numeric($_POST['topic_id'])) {
 
 $update_when_modified = true;
 require('permissioncheck.php');
-$mpath = WB_PATH.'/modules/'.$mod_dir.'/';
+$mpath = LEPTON_PATH.'/modules/'.$mod_dir.'/';
 require_once($mpath.'/functions.php');
 require_once($mpath.'defaults/module_settings.default.php');
 require_once($mpath.'module_settings.php');
@@ -22,12 +22,12 @@ $t = topics_localtime();
 
 
 
-require_once(WB_PATH."/include/jscalendar/jscalendar-functions.php");
+require_once(LEPTON_PATH."/include/jscalendar/jscalendar-functions.php");
 
 // Include WB functions file
-require(WB_PATH.'/framework/summary.functions.php');
+require(LEPTON_PATH.'/framework/summary.functions.php');
 // Include the ordering class
-require(WB_PATH.'/framework/class.order.php');
+require(LEPTON_PATH.'/framework/class.order.php');
 
 // Get Settings
 $query_settings = $database->query("SELECT * FROM ".TABLE_PREFIX."mod_".$tablename."_settings WHERE section_id = '$section_id'");
@@ -178,7 +178,7 @@ if ($copytopic == 1) {
 
 /*if (isset($_POST['resizepics']) AND $_POST['resizepics'] == '1' AND $picture != '' ) {
 	// Include Image functions
-	require_once(WB_PATH.'/modules/'.$mod_dir.'/resize_img.php');
+	require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/resize_img.php');
 	echo '<p>Resizing '.$picture.'</p>';
 	removeallpic ($topic_id);
 	makeallsizes ($topic_id);
@@ -186,17 +186,17 @@ if ($copytopic == 1) {
 }*/
 
 $modifyurl = ADMIN_URL.'/pages/modify.php?page_id='.$page_id;
-if ($fredit == 1) {$modifyurl = WB_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&hl='.$id.'&fredit=1';}
+if ($fredit == 1) {$modifyurl = LEPTON_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&hl='.$id.'&fredit=1';}
 
 
 // Check if there is a db error, otherwise say successful
 if($database->is_error()) {
-	$admin->print_error($database->get_error(), WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$id.'&fredit='.$fredit);
+	$admin->print_error($database->get_error(), LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$id.'&fredit='.$fredit);
 } else {
 	if ($gototopicslist == 1) {
 		$admin->print_success($TEXT['SUCCESS'], $modifyurl);
 	} else {
-		$admin->print_success($TEXT['SUCCESS'], WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$id.'&fredit='.$fredit);
+		$admin->print_success($TEXT['SUCCESS'], LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$id.'&fredit='.$fredit);
 	}
 		
 }

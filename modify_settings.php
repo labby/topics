@@ -1,7 +1,7 @@
 <?php
 
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 require('permissioncheck.php');
 
 // include core functions of WB 2.7 to edit the optional module CSS files (frontend.css, backend.css)
@@ -19,10 +19,10 @@ if ($showoptions != true) {
 	exit( 0 );
 }
 
-if(!file_exists(WB_PATH.'/modules/'.$mod_dir.'/languages/info-'.LANGUAGE.'.php')) {
-	require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/info-EN.php');
+if(!file_exists(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/info-'.LANGUAGE.'.php')) {
+	require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/info-EN.php');
 } else {
-	require_once(WB_PATH.'/modules/'.$mod_dir.'/languages/info-'.LANGUAGE.'.php');
+	require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/languages/info-'.LANGUAGE.'.php');
 }
 	
 
@@ -37,7 +37,7 @@ if ($use_getfrom || $use_presets) echo "<br/>";
 $query_others = $database->query("SELECT page_id, section_id FROM ".TABLE_PREFIX."mod_".$tablename."_settings WHERE section_id <> '$section_id' AND  section_id > '0' ORDER BY page_id ASC");
 $othersectionspresent = $query_others->numRows();
 if ($use_getfrom) { 
-	echo '<script type="text/javascript"> var theurl = "' .WB_URL.'/modules/'.$mod_dir.'/getsettings.php?"; </script>';
+	echo '<script type="text/javascript"> var theurl = "' .LEPTON_URL.'/modules/'.$mod_dir.'/getsettings.php?"; </script>';
 	echo '<table cellpadding="2" cellspacing="0" border="0" width="100%" id="getfromtable" style="display:none;">
 	<tr><td width="30%" valign="top">Get from:<br/>
 	<form name="getsettings" action="#" method="get" style="margin: 0;">
@@ -68,8 +68,8 @@ if ($use_getfrom) {
 if ($use_presets) { 
 	//get presets	
 	$thelanguage = strtolower(LANGUAGE);
-	if (!is_dir(WB_PATH.'/modules/'.$mod_dir.'/presets-'.$thelanguage)) { $thelanguage = 'en';}
-	$presets_files = WB_PATH.'/modules/'.$mod_dir.'/presets-'.$thelanguage;
+	if (!is_dir(LEPTON_PATH.'/modules/'.$mod_dir.'/presets-'.$thelanguage)) { $thelanguage = 'en';}
+	$presets_files = LEPTON_PATH.'/modules/'.$mod_dir.'/presets-'.$thelanguage;
 	echo '<script type="text/javascript"> var thelanguage = "' .$thelanguage. '"; </script>';
 
 	echo '<table cellpadding="2" cellspacing="0" border="0" width="100%" id="presetstable" style="display:none;">
@@ -91,7 +91,7 @@ if ($use_presets) {
 		$thistemplate = $result_fetch['value'];	
 	}
 	
-	if (file_exists(WB_PATH.'/templates/'.$thistemplate.'/topics-preset.js')) {
+	if (file_exists(LEPTON_PATH.'/templates/'.$thistemplate.'/topics-preset.js')) {
 		echo '<option value="../../templates/'.$thistemplate.'/topics-preset.js">Template default</option> <option disabled="disabled" value="--">------------------------------</option>'; 	
 	}
 	
@@ -176,9 +176,9 @@ $raw = array('<', '>');
 $friendly = array('&lt;', '&gt;');
 
 // check if backend.css file needs to be included into the <body></body> of modify.php
-if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."/modules/form/backend.css")) {
+if(!method_exists($admin, 'register_backend_modfiles') && file_exists(LEPTON_PATH ."/modules/form/backend.css")) {
 	echo '<style type="text/css">';
-	include(WB_PATH .'/modules/form/backend.css');
+	include(LEPTON_PATH .'/modules/form/backend.css');
 	echo "\n</style>\n";
 }
 
@@ -186,7 +186,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 <h2><?php echo $MOD_TOPICS['SETTINGS']; ?></h2>
 
 
-<form class="settingsform" name="modify" action="<?php echo WB_URL.'/modules/'.$mod_dir; ?>/save_settings.php" method="post" style="margin: 0;">
+<form class="settingsform" name="modify" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/save_settings.php" method="post" style="margin: 0;">
 
 	<input type="hidden" name="section_id" value="<?php echo $section_id; ?>" />
 	<input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
@@ -353,7 +353,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 	</table>
 
 	<div class="infodiv"><?php echo $MOD_TOPICS_INFO['SECTIONSETTINGS']; ?>
-	<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#seiten">'.$MENU['HELP'].'</a></div>'; ?>
+	<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#seiten">'.$MENU['HELP'].'</a></div>'; ?>
 	</div><br style="clear:both;" />
 </div>
 	
@@ -380,7 +380,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 		</table>
 	</tr></td></table>
 	<div class="infodiv"><?php echo $MOD_TOPICS_INFO['PICTURES']; ?>
-	<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#pictures">'.$MENU['HELP'].'</a></div>'; ?>
+	<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#pictures">'.$MENU['HELP'].'</a></div>'; ?>
 	</div>
 	<br style="clear:both;" />
 
@@ -406,7 +406,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 	</td></tr>
 	</table>
 		<div class="infodiv"><?php echo $MOD_TOPICS_INFO['TOPICSPAGE']; ?>
-		<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#loop">'.$MENU['HELP'].'</a></div>'; ?>
+		<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#loop">'.$MENU['HELP'].'</a></div>'; ?>
 		</div><br style="clear:both;" />
 		</div>
 
@@ -432,7 +432,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 		</tr>
 	</table>
 	<div class="infodiv"><?php echo $MOD_TOPICS_INFO['TOPIC']; ?>
-	<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#topic">'.$MENU['HELP'].'</a></div>'; ?>
+	<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#topic">'.$MENU['HELP'].'</a></div>'; ?>
 	</div><br style="clear:both;" />
 </div>
 		
@@ -498,7 +498,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 		</tr>		
 	</table>
 	<div class="infodiv"><?php echo $MOD_TOPICS_INFO['PNSA_STRING']; ?>
-	<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#pnsa">'.$MENU['HELP'].'</a></div>'; ?>
+	<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#pnsa">'.$MENU['HELP'].'</a></div>'; ?>
 	</div><br style="clear:both;" />
 </div>
 
@@ -600,7 +600,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 		
 	</table>
 	<div class="infodiv"><?php echo $MOD_TOPICS_INFO['COMMENTS']; ?>
-	<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#comments">'.$MENU['HELP'].'</a></div>'; ?>
+	<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#comments">'.$MENU['HELP'].'</a></div>'; ?>
 	</div><br style="clear:both;" />
 </div>
 	
@@ -633,7 +633,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 	</tr>
 	</table>
 	<div class="infodiv"><?php echo $MOD_TOPICS_INFO['VARIOUS']; ?>
-	<?php echo '<div style="float:right"><a target="_blank" href="'.WB_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#various">'.$MENU['HELP'].'</a></div>'; ?>
+	<?php echo '<div style="float:right"><a target="_blank" href="'.LEPTON_URL.'/modules/'.$mod_dir.'/help.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.'#various">'.$MENU['HELP'].'</a></div>'; ?>
 	</div><br style="clear:both;" />
 </div>
 
@@ -651,7 +651,7 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(WB_PATH ."
 			</td>
 			<td align="right">
 				<?php $backurl = ADMIN_URL.'/pages/modify.php?page_id='.$page_id.'&section_id='.$section_id;
-				if ($fredit == 1) {$backurl = WB_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1';} ?>
+				if ($fredit == 1) {$backurl = LEPTON_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1';} ?>
 				<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo $backurl; ?>';" style="width: 100px; margin-top: 5px;" />
 			</td>
 		</tr>

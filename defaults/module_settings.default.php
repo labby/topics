@@ -1,7 +1,7 @@
 <?php
 
 // Must include code to stop this file being access directly
-if(defined('WB_PATH') == false) { exit("Cannot access this file directly"); }
+if(defined('LEPTON_PATH') == false) { exit("Cannot access this file directly"); }
 
 //new in topics 2.8 
 //you can define a list of groups.

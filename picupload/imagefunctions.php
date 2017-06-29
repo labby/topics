@@ -1,6 +1,6 @@
 <?php
 // Direkter Zugriff verhindern
-if (!defined('WB_PATH')) die (header('Location: index.php'));
+if (!defined('LEPTON_PATH')) die (header('Location: index.php'));
 
  
 function resizepic($filepath, $newfilepath, $pic_soll_w, $pic_soll_h, $checksize = 0, $positionX = 0, $positionY = 0, $positionW = 0, $positionH = 0){

@@ -1,6 +1,6 @@
 <?php
 require('../../config.php');
-if(!defined('WB_PATH')) { exit("Cannot access this file directly"); }
+if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 require('permissioncheck.php');
 
 // Get id
@@ -19,7 +19,7 @@ $fetch_content = $query_content->fetchRow();
 
 <h2><?php echo $TEXT['MODIFY'].' '.$TEXT['COMMENT']; ?></h2>
 
-<form name="modify" action="<?php echo WB_URL.'/modules/'.$mod_dir; ?>/save_comment.php" method="post" style="margin: 0;">
+<form name="modify" action="<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/save_comment.php" method="post" style="margin: 0;">
 
 <input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
 <input type="hidden" name="page_id" value="<?php echo $page_id; ?>">
@@ -73,8 +73,8 @@ $fetch_content = $query_content->fetchRow();
 
 </table>
 <?php 
-$backurl = WB_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$fetch_content['topic_id'].$paramdelimiter.'fredit='.$fredit;
-$deleteurl = WB_URL.'/modules/'.$mod_dir.'/delete_comment.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$fetch_content['topic_id'].$paramdelimiter.'comment_id='.$fetch_content['comment_id'].$paramdelimiter.'fredit='.$fredit;
+$backurl = LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$fetch_content['topic_id'].$paramdelimiter.'fredit='.$fredit;
+$deleteurl = LEPTON_URL.'/modules/'.$mod_dir.'/delete_comment.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$fetch_content['topic_id'].$paramdelimiter.'comment_id='.$fetch_content['comment_id'].$paramdelimiter.'fredit='.$fredit;
 ?>
 
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
