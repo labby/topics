@@ -27,7 +27,7 @@ require_once(WB_PATH.'/framework/class.frontend.php');
 require_once(WB_PATH.'/framework/summary.functions.php');
 // Create new frontend object
 $wb = new frontend();
-$topic_link2 = page_filename($topic_link);
+$topic_link2 = save_filename($topic_link);
 if ($topic_link2 !== $topic_link) {
 	header('Location: ../../');	
 	exit(0);

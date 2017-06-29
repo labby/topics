@@ -134,9 +134,9 @@ if ($settings_fetch['sort_topics'] == 3) {
 }
 
 
-$title_link = page_filename($title);
+$title_link = save_filename($title);
 $old_link = $admin->get_post_escaped('link');
-$user_link =  page_filename($admin->get_post_escaped('user_link'));
+$user_link =  save_filename($admin->get_post_escaped('user_link'));
 
 $topic_link = topics_findlink ($title_link, $old_link, $user_link);
 if ($create_topics_accessfiles > 0 ) {topics_createaccess_file ($old_link, $topic_link, $movetopic, $topics_directory, $topics_directory_depth);}

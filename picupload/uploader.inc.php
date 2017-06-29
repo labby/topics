@@ -74,7 +74,7 @@ if(!is_dir($newfileFolder)){
 
 $fname = $_FILES['uploadpic']['name']; 
 $fname = substr($fname, 0, strlen($fname) - 4);
-$fname = page_filename($fname); 
+$fname = save_filename($fname); 
 
 if(isset($_REQUEST['nooverwrite']) ) {
 	$ncount = 1;
