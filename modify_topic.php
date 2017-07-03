@@ -115,7 +115,7 @@ if (!empty($leptoken)) {
 <div class="modifytopic1"><?php echo $TEXT['TITLE']; ?>:<br/>
 <input type="text" name="title" value="<?php echo (htmlspecialchars($fetch_content['title'])); ?>" style="width: 90%;" maxlength="255" /></div>
 <div class="modifytopic1"><?php echo $MOD_TOPICS['SHORT_DESCRIPTION']; ?>:<br/>
-<textarea name="short_description" style="width: 90%; height: 30px;"><?php echo (htmlspecialchars($fetch_content['short_description'])); ?></textarea></div>
+<textarea name="short_description" id="no_wysiwyg" style="width: 90%; height: 30px;"><?php echo (htmlspecialchars($fetch_content['short_description'])); ?></textarea></div>
 <?php 
 /*=================================================================================================================
 New in Topics 2.8: groups_id */
@@ -315,7 +315,7 @@ if ($extra_textareaheight < 10) {
 <tr><td style="width:70%; padding-right:10px;">
 <div <?php if ($fetch_content['content_long'] == '') {echo ' style="display:none;"';} ?>>
 <div class="modifytopic1">Meta-Description:<br/>
-<textarea name="description" rows="30" cols="3" style="width: 98%; height: 50px;"><?php echo $fetch_content['description']; ?></textarea></div>
+<textarea name="description" id="no_wysiwyg" rows="30" cols="3" style="width: 98%; height: 50px;"><?php echo $fetch_content['description']; ?></textarea></div>
 <div class="modifytopic1">Meta-Keywords:<br/>
 <input type="text" name="keywords" value="<?php echo (htmlspecialchars($fetch_content['keywords'])); ?>" style="width: 98%;" maxlength="255" /></div>
 </div>
