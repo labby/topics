@@ -1,4 +1,16 @@
 <?php
+/**
+ * 
+ *  @module      	Topics
+ *  @author         Chio Maisriml, Dietrich Roland Pehlke, erpe
+ *  @license        http://www.gnu.org/licenses/gpl.htm
+ *  @platform       see info.php of this addon
+ *  @license terms  see info.php of this addon
+ *  @version        see info.php of this module
+ *  
+ *
+ */
+ 
 $t=time();
 $firsttopic = "INSERT INTO ".TABLE_PREFIX."mod_".$mod_dir." SET section_id = '".$section_id."', page_id = '".$page_id."', posted_first = '".$t."', posted_by = '1', authors = '1',
 content_extra = '', txtr1 = 'http://websitebaker.at/topics/schnelle-einfuehrung.html',

@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * 
+ *  @module      	Topics
+ *  @author         Chio Maisriml, Dietrich Roland Pehlke, erpe
+ *  @license        http://www.gnu.org/licenses/gpl.htm
+ *  @platform       see info.php of this addon
+ *  @license terms  see info.php of this addon
+ *  @version        see info.php of this module
+ *  
+ *
+ */
+ 
 // Check if there is a specific topic defined
 /*if (isset($_GET['topic_id']) AND is_numeric($_GET['topic_id']) AND $_GET['topic_id'] >= 0) {
 	$topic_id = $_GET['topic_id'];

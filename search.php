@@ -1,15 +1,15 @@
 <?php
 
 /**
- * TOPICS
+ * 
+ *  @module      	Topics
+ *  @author         Chio Maisriml, Dietrich Roland Pehlke, erpe
+ *  @license        http://www.gnu.org/licenses/gpl.htm
+ *  @platform       see info.php of this addon
+ *  @license terms  see info.php of this addon
+ *  @version        see info.php of this module
+ *  
  *
- * @author Chio Maisriml <media@beesign.com>
- * @author Ralf Hertsch <ralf.hertsch@phpmanufaktur.de>
- * @link http://websitebaker.at
- * @link https://addons.phpmanufaktur.de/topics
- * @copyright Chio Maisriml http://websitebaker.at
- * @copyright phpManufaktur by Ralf Hertsch
- * @license http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution 3.0
  */
 
 // include class.secure.php to protect this file and the whole CMS!

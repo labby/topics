@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * 
+ *  @module      	Topics
+ *  @author         Chio Maisriml, Dietrich Roland Pehlke, erpe
+ *  @license        http://www.gnu.org/licenses/gpl.htm
+ *  @platform       see info.php of this addon
+ *  @license terms  see info.php of this addon
+ *  @version        see info.php of this module
+ *  
+ *
+ */
+
 	if ($eventplaceholders == true) {			
 		$the_startdate = explode('.', gmdate("d.m.Y.D.M.w.n", $topic['published_when']));
 		if (isset($MOD_TOPICS['EVENT_DAYNAMES'])) {

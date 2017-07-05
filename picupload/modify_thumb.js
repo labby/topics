@@ -1,3 +1,15 @@
+/**
+ * 
+ *  @module      	Topics
+ *  @author         Chio Maisriml, Dietrich Roland Pehlke, erpe
+ *  @license        http://www.gnu.org/licenses/gpl.htm
+ *  @platform       see info.php of this addon
+ *  @license terms  see info.php of this addon
+ *  @version        see info.php of this module
+ *  
+ *
+ */
+
 $(document).ready(function() {
 	$.insert('../../include/jquery/jquery-ui-min.js');
 	$.insert(MOD_URL+'/picupload/jcrob/js/jquery.Jcrop.min.js');

@@ -6,7 +6,7 @@ TOPICS was initiated by [Chio Maisriml][3].
 
 #### Requirements
 
-* [LEPTON CMS][2] release 2.x
+* [LEPTON CMS][2] release 3.x
 
 #### Installation
 
@@ -17,7 +17,7 @@ TOPICS was initiated by [Chio Maisriml][3].
 
 Create a new page of the type "Topics" and start to create your own Topics...
 
-The integrated help function will explain you all necessary. For further informations please visit the website of [Chio Maisriml][4].
+The integrated help function will explain you all necessary.
 
 [2]: http://lepton-cms.org "LEPTON CMS"
 [3]: http://websitebaker.at

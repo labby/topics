@@ -1,12 +1,22 @@
 <?php
 
+/**
+ * 
+ *  @module      	Topics
+ *  @author         Chio Maisriml, Dietrich Roland Pehlke, erpe
+ *  @license        http://www.gnu.org/licenses/gpl.htm
+ *  @platform       see info.php of this addon
+ *  @license terms  see info.php of this addon
+ *  @version        see info.php of this module
+ *  
+ *
+ */
+ 
 // Stop this file from being accessed directly
 if(!defined('LEPTON_URL')) {
 	header('Location: ../index.php');
 	exit(0);
 }
-
-
 
 function makemetadescription ($thestring) {
 	
