@@ -198,7 +198,7 @@ function getpicturepreviews() {
 }
 
 function getresults() {   
-	qstr = 's=' + topicsection+'&p='+topicpage; // NOTE: no '?' before querystring
+	qstr = 's=' + topicsection+'&p='+topicpage+'&leptoken='+leptoken; // NOTE: no '?' before querystring
 	//alert(qstr);
     return qstr;
 }
@@ -218,7 +218,7 @@ function choosethispicture(picfile) {
 	modify = document.getElementById('todocheckbox').checked;
 		document.getElementById('todocheckbox').checked = false;
 	if (modify) {		
-		document.getElementById('picturechooser').innerHTML = '<iframe src="picupload/uploadview.php?section_id='+topicsection+'&page_id='+topicpage+'&fn='+picfile+'" frameborder="0" class="" style="width:'+(innerw-30)+'px; height:'+(innerh-50)+'px;" scrolling="auto"></iframe>';	
+		document.getElementById('picturechooser').innerHTML = '<iframe src="picupload/uploadview.php?section_id='+topicsection+'&page_id='+topicpage+'&fn='+picfile+'&leptoken='+leptoken+'" frameborder="0" class="" style="width:'+(innerw-30)+'px; height:'+(innerh-50)+'px;" scrolling="auto"></iframe>';	
 		document.getElementById('whattodo').style.display = "none";
 	} else {	
 		document.images['topicpic'].style.display = "block";
@@ -250,14 +250,14 @@ function openpicturemodify() {
 	
 	//getpicturepreviews();
 	//document.getElementById('picturechooser').innerHTML = 'HALLO';
-	document.getElementById('picturechooser').innerHTML = '<iframe src="picupload/uploadview.php?section_id='+topicsection+'&page_id='+topicpage+'&fn='+picfile+'" frameborder="0" class="" style="width:'+(innerw-30)+'px; height:'+(innerh-50)+'px;" scrolling="auto"></iframe>';
+	document.getElementById('picturechooser').innerHTML = '<iframe src="picupload/uploadview.php?section_id='+topicsection+'&page_id='+topicpage+'&fn='+picfile+'&leptoken='+leptoken+'" frameborder="0" class="" style="width:'+(innerw-30)+'px; height:'+(innerh-50)+'px;" scrolling="auto"></iframe>';
 		
 	//alert(picfile);
 }
 
 
 function showuploader() {
-	document.getElementById('picturechooser').innerHTML = '<iframe src="picupload/uploader.php?section_id='+topicsection+'&page_id='+topicpage+'" frameborder="0" class="" style="width:'+(innerw-30)+'px; height:'+(innerh-50)+'px;" scrolling="auto"></iframe>';
+	document.getElementById('picturechooser').innerHTML = '<iframe src="picupload/uploader.php?section_id='+topicsection+'&page_id='+topicpage+'&leptoken='+leptoken+'" frameborder="0" class="" style="width:'+(innerw-30)+'px; height:'+(innerh-50)+'px;" scrolling="auto"></iframe>';
 }
 
 function showtabarea(nr) {

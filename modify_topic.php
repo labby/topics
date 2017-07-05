@@ -617,6 +617,7 @@ if($query_comments->numRows() > 0) {
 <script type="text/javascript">
 	var topicsection = <?php echo $section_id; ?>;
 	var topicpage = <?php echo $page_id; ?>;
+	var leptoken = "<?php echo get_leptoken(); ?>";
 </script>
 
 <?php
