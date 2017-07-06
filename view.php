@@ -36,15 +36,6 @@ require_once(LEPTON_PATH.'/modules/'.$mod_dir.'/functions_small.php');
 
 //$topics_use_wysiwyg = 1;
 
-// check if frontend.css file needs to be included into the <body></body> of view.php
-if((!function_exists('register_frontend_modfiles') || !defined('MOD_FRONTEND_CSS_REGISTERED')) &&  file_exists(LEPTON_PATH .'/modules/'.$mod_dir.'/frontend.css')) {
-   echo '<style type="text/css">';
-   include(LEPTON_PATH .'/modules/'.$mod_dir.'/frontend.css');
-   echo "\n</style>\n";
-} 
-
-
-
 // Check if there is a start point defined
 if(isset($_GET['p']) AND is_numeric($_GET['p']) AND $_GET['p'] >= 0) {
 	$showoffset = $_GET['p'];
@@ -53,9 +44,7 @@ if(isset($_GET['p']) AND is_numeric($_GET['p']) AND $_GET['p'] >= 0) {
 	$showoffset = 0;
 }
 
-
 $t = topics_localtime();
-
 
 $makeeditlink = false;
 $authoronly = false;
