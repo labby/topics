@@ -29,35 +29,70 @@ require_once($mpath.'defaults/module_settings.default.php');
 require_once($mpath.'module_settings.php');
 require_once($mpath.'functions_small.php');
 
-$query_page = $database->query("SELECT menu_title, link FROM ".TABLE_PREFIX."pages WHERE page_id = '$page_id'");
-$fetch_menu = $query_page->fetchRow();
+$fetch_menu = array();
+$database->execute_query(
+	"SELECT `menu_title`, `link` FROM `".TABLE_PREFIX."pages` WHERE `page_id` = ".$page_id,
+	true,
+	$fetch_menu,
+	false
+);
 $section_title = $fetch_menu['menu_title'];
 
+// get first topics_settings inside DB
+$temp_topics_settings = array();
+$database->execute_query(
+	"SELECT * FROM `".TABLE_PREFIX."mod_".$mod_dir."_settings` WHERE `is_master_for` = '' ORDER BY `section_id` DESC LIMIT 1",
+	true,
+	$temp_topics_settings,
+	false
+);
 
-$addstring = '';
-$query = $database->query("SELECT * FROM ".TABLE_PREFIX."mod_".$mod_dir."_settings WHERE is_master_for = '' ORDER BY section_id DESC LIMIT 1");
-if($query->numRows() == 1) {
-	$sets = $query->fetchRow();	
-	foreach ($sets as $key => $value) {
-		if (is_numeric($key)) {continue;}
-		if ($key == 'section_id' OR $key == 'page_id' OR $key == 'section_title')  {continue;}
-		if ($value == '') {continue;}
-		
-		$addstring .= ', '.$key."='".addslashes($value)."'";
-	}
+if( count($temp_topics_settings) > 0 ) {
+
+	$temp_topics_settings['section_id']	= $section_id;
+	$temp_topics_settings['page_id'] = $page_id;
+	$temp_topics_settings['section_title'] = $section_title;
 	
-	$theq = "INSERT INTO ".TABLE_PREFIX."mod_".$mod_dir."_settings SET ";
-	$theq .= "section_id='".$section_id."', page_id='".$page_id."', section_title='".$section_title."' ". $addstring;
 } else {
-	$theq = "INSERT INTO ".TABLE_PREFIX."mod_".$tablename."_settings (section_id,page_id,section_title,section_description,sort_topics,use_timebased_publishing,picture_dir,header,topics_loop,footer,topics_per_page,topic_header,topic_footer,topic_block2,pnsa_string,pnsa_max,comments_header,comments_loop,comments_footer,commenting,default_link,use_captcha,sort_comments) VALUES ('$section_id','$page_id','$section_title','$section_description','$sort_topics','$use_timebased_publishing','$picture_dir','$header','$topics_loop','$footer','$topics_per_page','$topic_header','$topic_footer','$topic_block2','$pnsa_string','$pnsa_max','$comments_header','$comments_loop','$comments_footer','$commenting','$default_link','$use_captcha','$sort_comments')";
+	
+	//	none found ... we are using the vars from 'modules_settings.php'. 	
+	$temp_topics_settings = array(
+		"section_id"	=> $section_id,
+		"page_id"		=> $page_id,
+		"section_title"	=> $section_title,
+		"section_description"	=> $section_description,
+		"sort_topics"	=> $sort_topics,
+		"use_timebased_publishing"	=> $use_timebased_publishing,
+		"picture_dir"	=> $picture_dir,
+		"header"	=> $header,
+		"topics_loop"	=> $topics_loop,
+		"footer"	=> $footer,
+		"topics_per_page" => $topics_per_page,
+		"topic_header"	=> $topic_header,
+		"topic_footer"	=> $topic_footer,
+		"topic_block2"	=> $topic_block2,
+		"pnsa_string"	=> $pnsa_string,
+		"pnsa_max"		=> $pnsa_max,
+		"comments_header"	=> $comments_header,
+		"comments_loop"		=> $comments_loop,
+		"comments_footer"	=> $comments_footer,
+		"commenting"		=> $commenting,
+		"default_link"		=> $default_link,
+		"use_captcha"		=> $use_captcha,
+		"sort_comments"		=> $sort_comments
+	);
+	
 	include('defaults/first-topics.php');
-
 }
 
-$database->query($theq);
+$database->build_and_execute(
+	'insert',
+	TABLE_PREFIX."mod_".$mod_dir."_settings",
+	$temp_topics_settings
+);
 
-//Add a frirst topic_
-//include('defaults/first-topics.php');
+// Add a frirst topic_
+// include('defaults/first-topics.php');
 if (isset($firsttopic)) {
 	$database->query($firsttopic);	
 	// Get the id
