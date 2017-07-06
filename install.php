@@ -133,7 +133,7 @@ $SQL = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_topics_rss_count` ( ".
     "`section_id` INT(11) NOT NULL DEFAULT '-1', ".
     "`md5_ip` VARCHAR(32) NOT NULL DEFAULT '', ".
     "`count` INT(11) NOT NULL DEFAULT '0', ".
-    "`date` DATE NOT NULL DEFAULT '0000-00-00', ".
+    "`date` DATE NOT NULL DEFAULT '1971-01-01', ".
     "`timestamp` TIMESTAMP, ".
     "PRIMARY KEY (`id`), ".
     "KEY (`md5_ip`, `date`) ".
@@ -145,7 +145,7 @@ if (!$database->query($SQL))
 $SQL = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_topics_rss_statistic` ( ".
     "`id` INT(11) NOT NULL AUTO_INCREMENT, ".
     "`section_id` INT(11) NOT NULL DEFAULT '-1', ".
-    "`date` DATE NOT NULL DEFAULT '0000-00-00', ".
+    "`date` DATE NOT NULL DEFAULT '1971-01-01', ".
     "`callers` INT(11) NOT NULL DEFAULT '0', ".
     "`views` INT(11) NOT NULL DEFAULT '0', ".
     "`timestamp` TIMESTAMP, ".
