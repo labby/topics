@@ -15,8 +15,6 @@
 require_once(dirname(__FILE__).'/../../../config.php');
 if(!defined('LEPTON_PATH')) { 	die("sorry, no access..");}
 
-
-
 // Get id
 if(isset($_REQUEST['section_id']) AND is_numeric($_REQUEST['section_id']) AND isset($_REQUEST['page_id']) AND is_numeric($_REQUEST['page_id'])) {
 	$section_id = (int) $_REQUEST['section_id']; 
@@ -53,7 +51,7 @@ body {
 <form name="upload" action="newuploader2.php" method="post" style="margin: 0; width:100%; font-size:10px;"  enctype="multipart/form-data">
 	<input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
 	<input type="hidden" name="page_id" value="<?php echo $page_id; ?>">
-	
+	<input type="hidden" name="leptoken" value="<?php echo get_leptoken(); ?>">
 	
 <input type="file" class="inputfield" name="uploadpic" style="width:250px;font-size:11px;" onchange="startupload()"/>
 <input type="submit" style="width:30px;font-size:11px;" value="GO!">

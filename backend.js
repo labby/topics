@@ -45,7 +45,7 @@ function changepic(wie) {
 function showpictureupload () {
 	if (document.getElementById("pictureupload").style.display=="none") 	{
 		document.getElementById("pictureupload").style.display="block";
-		document.getElementById("pictureupload").innerHTML = '<iframe src="picupload/newuploader.php?page_id='+topicpage+'&section_id='+topicsection+'" allowtransparency="true" scrolling="no" width="100%" height="40" border="0" name="newuploader" id="newuploader"></iframe>';
+		document.getElementById("pictureupload").innerHTML = '<iframe src="picupload/newuploader.php?page_id='+topicpage+'&section_id='+topicsection+'&leptoken='+leptoken+'" allowtransparency="true" scrolling="no" width="100%" height="40" border="0" name="newuploader" id="newuploader"></iframe>';
 	} else {
 		document.getElementById("pictureupload").style.display="none";
 	}	
