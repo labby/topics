@@ -27,17 +27,38 @@ $order = new order(TABLE_PREFIX.'mod_'.$tablename, 'position', 'topic_id', 'sect
 $position = $order->get_new($section_id);
 
 // Get default commenting
-$query_settings = $database->query("SELECT commenting FROM ".TABLE_PREFIX."mod_".$tablename."_settings WHERE section_id = '$section_id'");
-$settings_fetch = $query_settings->fetchRow();
-$commenting = $settings_fetch['commenting'];
+$commenting = $database->get_one("SELECT `commenting` FROM `".TABLE_PREFIX."mod_".$tablename."_settings` WHERE `section_id` = ".$section_id);
 
 // Insert new row into database
 $t = 0; //= topic is just startet, begin time is when first saved    //topics_localtime();
 $theuser = $admin->get_user_id();
-$database->query("INSERT INTO ".TABLE_PREFIX."mod_".$tablename." (section_id,page_id,position,commenting,active,posted_by,authors,posted_first) VALUES ('$section_id','$page_id','$position','$commenting','$activedefault','$theuser',',$theuser,','$t')");
 
+$fields = array(
+	"section_id"	=> $section_id,
+	"page_id"		=> $page_id,
+	"position"		=> $position,
+	"commenting"	=> $commenting,
+	"active"		=> $activedefault,	// aldus: $activedefault comes from 'module_settings'
+	"posted_by"		=> $theuser,
+	"modified_by"	=> $theuser,
+	"link"			=> "",
+	"content_short"	=> "",
+	"content_long"	=> "",
+	"content_extra"	=> "",
+	"tagcloud"		=> "", // aldus: ???
+	"rating_base"	=> "", // aldus: ???
+	"pnsa_cache"	=> "", // aldus: ???
+	"authors"		=> ','.$theuser.',', // aldus: why as a list-item? The ","?
+	"posted_first"	=> $t
+);
+$database->build_and_execute(
+	"insert",
+	TABLE_PREFIX."mod_".$tablename,
+	$fields
+);
+if($database->is_error()) die(LEPTON_tools::display( $database->get_error()));
 // Get the id
-$topic_id = $database->get_one("SELECT LAST_INSERT_ID()");
+$topic_id = $database->get_one("SELECT LAST_INSERT_ID();");
 
 // Say that a new record has been added, then redirect to modify page
 if($database->is_error()) {
