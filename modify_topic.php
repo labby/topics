@@ -560,7 +560,7 @@ if($query_comments->numRows() > 0) {
 
 <table cellpadding="2" cellspacing="0" border="0" width="100%">
 	<?php
-	while($comment = $query_comments->fetchRow( MYSQL_ASSOC )) {
+	while($comment = $query_comments->fetchRow()) {
 		$editcommentlink = LEPTON_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter.'comment_id='.$comment['comment_id'].'" title="'.$TEXT['MODIFY'].'"';
 		?><tr class="row_<?php echo $row; ?>">
 			<td width="20" style="padding-left: 5px;"><a href="<?php echo $editcommentlink; ?>"><img src="<?php echo THEME_URL; ?>/images/modify_16.png" border="0" alt="" title="edit" /></a></td>
