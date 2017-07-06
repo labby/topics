@@ -46,7 +46,18 @@ function doresize() {
 }
 //-->
 </script>
-</head><body> <table id="wraptable"><tr><td>
+</head><body> 
+<?php
+	if( true === isset($_GET['mail_send_message']))
+	{
+		$message = trim( htmlspecialchars( $_GET['mail_send_message'] ) );
+		if($message != "")
+		{
+			echo "<h3>".$message."</h3>";
+		}
+	}
+?>
+<table id="wraptable"><tr><td>
 <?php
 // Get ids
 if(!isset($_GET['cid']) OR !is_numeric($_GET['cid'])) { $cid = 0; } else {$cid = $_GET['cid'];}

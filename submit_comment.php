@@ -27,8 +27,8 @@ require_once (LEPTON_PATH.'/modules/'.$mod_dir.'/functions_small.php');
 require_once(LEPTON_PATH.'/framework/class.wb.php');
 $wb = new wb;
 
-
-
+// Aldus: be sure the var exists! See forward at the end (~line 212 ff. and ~255 ff.)
+$mail_send_message = "";
 
 // Check if we should show the form or add a comment
 if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['section_id']) AND is_numeric($_GET['section_id']) AND isset($_GET['topic_id']) AND is_numeric($_GET['topic_id'])
@@ -62,7 +62,10 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 		if ($settings['various_values'] != '') {
 			$vv = explode(',',$settings['various_values']);		
 			$use_commenting_settings = (int) $vv[3];
-			$emailsettings = (int) $vv[4]; if ($emailsettings < 0) {$emailsettings = 2;} //Wie bisher: Pflichtfeld
+			$emailsettings = (true === isset($vv[4])) ? (int) $vv[4] : 2; // Aldus: 2 == default? Siehe zwei Zeilen weiter! 
+			if ($emailsettings < 0) {
+				$emailsettings = 2;
+			} //Wie bisher: Pflichtfeld // Aldus: warum 2 und seit wann?
 		}			
 
 		$query_topic = $database->query("SELECT link, commenting, posted_by,title  FROM ".TABLE_PREFIX."mod_".$tablename." WHERE topic_id = '$topic_id'");
@@ -198,13 +201,23 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 			$mail_message .=  '| <a href="'.$topic_link.'?publ='.$commentextra.'">Publish</a>';
 		}
 			
-		$wb->mail(SERVER_EMAIL,$admin_email,$mail_subject,$mail_message);
-		//echo $mail_message;
-		//die('mail wurde versendet');
+		// Aldus: $wb->mail gibt es unter L* 3 µ2 nicht mehr!
+		// $wb->mail(SERVER_EMAIL,$admin_email,$mail_subject,$mail_message);
+		$myMail = LEPTON_mailer::getInstance();
+		$result = $myMail->sendmail( SERVER_EMAIL, $admin_email, $mail_subject, $mail_message);
 		
+		if(false === $result)
+		{
+			// Aldus: Fehlermeldung von "mailer" abholen
+			$mail_send_message = "Error (topics) [1]: ".$myMail->ErrorInfo;
+		} else {
+			//echo $mail_message;
+			//die('mail wurde versendet');
+			$mail_send_message = "Mail wurde versendet."; // Aldus: SPRACHDATEI?
+		}
 	} else {
 		//die('mail konnte nicht versendet werden');
-	
+		$mail_send_message = "Error (topics) [2]: Mail konnte nicht gesendet werden."; // Aldus: SPRACHDATEI?
 	}// End Mail
 	
 	if ($spamlevel > 1) {
@@ -218,8 +231,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 	
 	
 	$query = $database->query($theq);
-	$last_insert = mysql_insert_id(); 
-	
+	$last_insert = $database->get_one("SELECT LAST_INSERT_ID()");
 	
 	if ( $active==1) { topics_update_comments_count ($topic_id) ;}
 	
@@ -239,7 +251,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 	$Gueltigkeit = time()+3456000;	//40 Tage
 	setcookie("commentdetails", $last_insert, $gueltigkeit);
 		
-	header('Location: '.LEPTON_URL."/modules/".$mod_dir."/commentdone.php?cid=$last_insert&tid=$topic_id");
+	header('Location: '.LEPTON_URL."/modules/".$mod_dir."/commentdone.php?cid=".$last_insert."&tid=".$topic_id."&mail_send_message=".$mail_send_message);
 	//ende chio
 	
 	
