@@ -16,9 +16,9 @@ require('../../config.php');
 if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
 require('permissioncheck.php');
-$mpath = LEPTON_PATH.'/modules/'.$mod_dir.'/';
-require_once($mpath.'defaults/module_settings.default.php');
-require_once($mpath.'module_settings.php');
+
+require_once(__DIR__.'/defaults/module_settings.default.php');
+require_once(__DIR__.'/module_settings.php');
 
 // Include the ordering class
 require(LEPTON_PATH.'/framework/class.order.php');
@@ -45,26 +45,37 @@ $fields = array(
 	"content_short"	=> "",
 	"content_long"	=> "",
 	"content_extra"	=> "",
-	"tagcloud"		=> "", // aldus: ???
-	"rating_base"	=> "", // aldus: ???
-	"pnsa_cache"	=> "", // aldus: ???
+	"tagcloud"		=> "", // field has no default
+	"rating_base"	=> "", // field has no default
+	"pnsa_cache"	=> "", // field has no default
 	"authors"		=> ','.$theuser.',', // aldus: why as a list-item? The ","?
 	"posted_first"	=> $t
 );
+
 $database->build_and_execute(
 	"insert",
 	TABLE_PREFIX."mod_".$tablename,
 	$fields
 );
-if($database->is_error()) die(LEPTON_tools::display( $database->get_error()));
-// Get the id
-$topic_id = $database->get_one("SELECT LAST_INSERT_ID();");
 
-// Say that a new record has been added, then redirect to modify page
-if($database->is_error()) {
-	$admin->print_error($database->get_error(), LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit);
+if($database->is_error())
+{
+	$topic_id = NULL;
+	
+	$admin->print_error(
+		LEPTON_tools::display( $database->get_error()),
+		LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit
+	);
+	
 } else {
-	$admin->print_success($TEXT['SUCCESS'], LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit);
+	// Get the last insert id
+	$topic_id = $database->get_one("SELECT LAST_INSERT_ID();");
+
+	$admin->print_success(
+		$TEXT['SUCCESS'],
+		LEPTON_URL.'/modules/'.$mod_dir.'/modify_topic.php?page_id='.$page_id.'&section_id='.$section_id.'&topic_id='.$topic_id.'&fredit='.$fredit
+	);
+
 }
 
 // Print admin footer
