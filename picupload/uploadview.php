@@ -32,6 +32,8 @@ if (($w_view == 0 AND $h_view == 0) OR ($w_thumb == 0 AND $h_thumb == 0)) {
 	die();
 }
 
+$leptoken = get_leptoken();
+
 require_once(LEPTON_PATH."/framework/summary.functions.php");
 require_once("imagefunctions.php");
 
@@ -211,19 +213,19 @@ $tl='?t='.time();
 $newfilepath = $picture_dir.'/thumbs/'.$imagename;
 if (file_exists($newfilepath)) {
 	echo '<table class="showpics"><tr><td class="showpicspic">Thumb:<br/><img class="uploadviewpic" src="'.$picture_dirurl.'/thumbs/'.$imagename.$tl.'" alt="thumb" /></td><td><br/>
-	<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=thumb"><img src="../img/crop.gif" alt="crop" title="crop" /></a>
+	<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=thumb&leptoken='.$leptoken.'"><img src="../img/crop.gif" alt="crop" title="crop" /></a>
  	</td></tr></table>';
 } else {
-	echo '<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=thumb"><img src="../img/crop.gif" alt="crop" title="crop" /></a><p>/thumbs/'.$imagename.':<br /> not found</p>';
+	echo '<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=thumb&leptoken='.$leptoken.'"><img src="../img/crop.gif" alt="crop" title="crop" /></a><p>/thumbs/'.$imagename.':<br /> not found</p>';
 }
 
 $newfilepath = $picture_dir.'/'.$imagename;
 if (file_exists($newfilepath)) {
 	echo '<table class="showpics"><tr><td class="showpicspic">View:<br/><img class="uploadviewpic" src="'.$picture_dirurl.'/'.$imagename.$tl.'" alt="view" /></td><td><br/>
-	<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=view"><img src="../img/crop.gif" alt="crop" title="crop" /></a>
+	<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=view&leptoken='.$leptoken.'"><img src="../img/crop.gif" alt="crop" title="crop" /></a>
  	</td></tr></table>';
 } else {
-	echo '<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=view"><img src="../img/crop.gif" alt="crop" title="crop" /></a>
+	echo '<a href="modify_thumb.php?page_id='.$page_id.'&amp;section_id='.$section_id.'&amp;fn='.$imagename.'&amp;what=view&leptoken='.$leptoken.'"><img src="../img/crop.gif" alt="crop" title="crop" /></a>
 	<p>/'.$imagename.':<br /> not found</p>';
 }
 
