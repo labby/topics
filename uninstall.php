@@ -27,7 +27,7 @@ $database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."xsik_".$tablename."`");
 $database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."xsik_".$tablename."_comments`");
 $database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."xsik_".$tablename."_settings`");
 $database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."xsik_".$tablename."_rss_count`");
-$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."xsik_".$tablename."_statistic`");
+$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."xsik_".$tablename."_rss_statistic`");
 
 $database->query("RENAME TABLE `".TABLE_PREFIX."mod_".$tablename."` TO `".TABLE_PREFIX."xsik_".$tablename."`");
 $database->query("RENAME TABLE `".TABLE_PREFIX."mod_".$tablename."_comments` TO `".TABLE_PREFIX."xsik_".$tablename."_comments`");
