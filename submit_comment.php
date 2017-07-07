@@ -117,7 +117,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 			if(isset($_POST['captcha']) AND $_POST['captcha'] != '') {
 				// Check for a mismatch
 				if(!isset($_POST['captcha']) OR !isset($_SESSION['captcha']) OR $_POST['captcha'] != $_SESSION['captcha']) {
-					$_SESSION['captcha_error'] = $MESSAGE['MOD_FORM']['INCORRECT_CAPTCHA'];
+					$_SESSION['captcha_error'] = $MESSAGE['MOD_FORM_INCORRECT_CAPTCHA'];
 					$_SESSION['comment_nome'] = $thename;
 					$_SESSION['comment_sote'] = $thesite;
 					$_SESSION['comment_moil'] = $themail;
@@ -125,7 +125,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 					exit(header('Location: '.LEPTON_URL."/modules/".$mod_dir."/comment.php?id=$topic_id&sid=$section_id&nok=1"));
 				}
 			} else {
-				$_SESSION['captcha_error'] = $MESSAGE['MOD_FORM']['INCORRECT_CAPTCHA'];
+				$_SESSION['captcha_error'] = $MESSAGE['MOD_FORM_INCORRECT_CAPTCHA'];
 				$_SESSION['comment_nome'] = $thename;
 				$_SESSION['comment_sote'] = $thesite;
 				$_SESSION['comment_moil'] = $themail;
@@ -248,7 +248,7 @@ if(isset($_GET['page_id']) AND is_numeric($_GET['page_id']) AND isset($_GET['sec
 		$gueltigkeit = time() + $topics_comment_cookie;
 		setcookie("comment".$topic_id, $last_insert.','.time(), $gueltigkeit);
 	}
-	$Gueltigkeit = time()+3456000;	//40 Tage
+	$gueltigkeit = time()+3456000;	//40 Tage
 	setcookie("commentdetails", $last_insert, $gueltigkeit);
 		
 	header('Location: '.LEPTON_URL."/modules/".$mod_dir."/commentdone.php?cid=".$last_insert."&tid=".$topic_id."&mail_send_message=".$mail_send_message);
