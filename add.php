@@ -79,10 +79,7 @@ if( count($temp_topics_settings) > 0 ) {
 		"commenting"		=> $commenting,
 		"default_link"		=> $default_link,
 		"use_captcha"		=> $use_captcha,
-		"sort_comments"		=> $sort_comments,
-		"tagcloud"			=> "",
-		"rating_base"		=> "",
-		"pnsa_cache"		=> ""
+		"sort_comments"		=> $sort_comments
 	);
 	
 	include('defaults/first-topics.php');
