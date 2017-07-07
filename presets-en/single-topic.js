@@ -35,6 +35,6 @@ document.modify.comments_footer.value = '';
 
 
 // To save as a preset, change this line with your description:
-document.getElementById('presetsdescription').innerHTML = 'Single Topics, see: <a href="http://websitebaker.at/wb/module/topics-playground/topics-einzeln.html">here</a>';
+document.getElementById('presetsdescription').innerHTML = 'Single Topics';
 
 alert("Done");

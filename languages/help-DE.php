@@ -24,7 +24,7 @@ erf&uuml;llt die Seite (genauer: die Section)</p>
   Platzhalter, Klassen und Einstellungsm&ouml;glichkeiten. Wer davon &uuml;berfordert
   ist (was schnell mal vorkommt..), kann nat&uuml;rlich
   einfach die Grundeinstellungen belassen oder die Presets ausprobieren.</p>
-<p>Weiter Hilfe gibt es auf <strong><a href="http://websitebaker.at/wb/module/topics.html" target="_blank">websitebaker.at</a></strong></p>
+<p> </p>
 <p><a href="#seiten">Seiteneinstellungen</a><br>
   <a href="#pictures">Bilder</a><br>
   <a href="#loop">&Uuml;bersicht-Seite</a><br>
