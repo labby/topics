@@ -91,6 +91,8 @@ $database->build_and_execute(
 	$temp_topics_settings
 );
 
+if(true === $database->is_error()) die( $database->get_error() );
+
 // Add a frirst topic_
 // include('defaults/first-topics.php');
 if (isset($firsttopic)) {
