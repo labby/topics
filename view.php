@@ -149,7 +149,7 @@ if ($is_master == '') {
 		$sectionquery = "section_id IN (".$is_master.")";
 	} else {		
 		if (!is_numeric(trim($is_master_Arr[0]))) {
-			$theq = "SELECT section_id FROM ".TABLE_PREFIX."mod_".$tablename."_settings WHERE picture_dir = '".$settings_fetch['picture_dir']."'";
+			$theq = "SELECT `section_id` FROM `".TABLE_PREFIX."mod_".$tablename."_settings` WHERE `picture_dir` = '".$settings_fetch['picture_dir']."' AND `section_id` > 0";
 			$query_others = $database->query($theq);
 			if(!$database->is_error()) {		
 				if($query_others->numRows() > 0) { 		
