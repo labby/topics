@@ -25,7 +25,7 @@ if ($chart_mode == 'day') {
     return $database->get_error();
   $title = "RSS Statistik - letzte $max_items Tage";
   $data = "['Tag', 'Abonnenten', 'Abrufe']";
-  while (false !== ($day = $query->fetchRow(MYSQL_ASSOC))) {
+  while (false !== ($day = $query->fetchRow())) {
     $data .= sprintf(",['%s',%d,%d]", date('d.m', strtotime($day['date'])), $day['callers'], $day['views']);
   }
 }
@@ -48,7 +48,7 @@ elseif ($chart_mode == 'week') {
     $SQL = "SELECT sum(`callers`) AS 'sum_callers', sum(`views`) AS 'sum_views' FROM `".TABLE_PREFIX."mod_topics_rss_statistic` WHERE `date`>='$monday' AND `date`<='$sunday'";
     if (null == ($query = $database->query($SQL)))
       return $database->get_error();
-    $week_sum = $query->fetchRow(MYSQL_ASSOC);
+    $week_sum = $query->fetchRow();
     $data .= sprintf(",['%02d/%d',%d,%d]", $week, $year, $week_sum['sum_callers'], $week_sum['sum_views']);
   }
 }
@@ -72,7 +72,7 @@ else {
     $SQL = "SELECT sum(`callers`) AS 'sum_callers', sum(`views`) AS 'sum_views' FROM `".TABLE_PREFIX."mod_topics_rss_statistic` WHERE `date`>='$first_day' AND `date`<='$last_day'";
     if (null == ($query = $database->query($SQL)))
       return $database->get_error();
-    $month_sum = $query->fetchRow(MYSQL_ASSOC);
+    $month_sum = $query->fetchRow();
     $data .= sprintf(",['%02d.%d',%d,%d]", $month, $year, $month_sum['sum_callers'], $month_sum['sum_views']);
   }
 }

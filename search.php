@@ -55,7 +55,7 @@ function topics_search($search) {
   if (null == ($query = $database->query($SQL)))
     trigger_error(sprintf('[%s - %s] %s', __FUNCTION__, __LINE__, $database->get_error()), E_USER_ERROR);
 
-  while (false !== ($topic = $query->fetchRow(MYSQL_ASSOC))) {
+  while (false !== ($topic = $query->fetchRow())) {
     $text = $topic['title'].$divider.$topic['description'].$divider.$topic['content_long'].$divider;
     $text = stripcslashes($text);
     $text = str_replace('||', '', $text);

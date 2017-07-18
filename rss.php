@@ -53,7 +53,7 @@ if (isset($_GET['counter']) && (strtolower($_GET['counter']) == 'false')) {
 if ($section_id == 0) {
   // read the first entry of the TOPICS settings to get a valid Section ID
   $SQL = "SELECT `section_id` FROM `".TABLE_PREFIX."mod_topics_settings` LIMIT 1";
-  if (null == ($section_id = $database->get_one($SQL, MYSQL_ASSOC)))
+  if (null == ($section_id = $database->get_one($SQL, )))
     die(sprintf('[%s] %s', __LINE__, $database->get_error()));
   if ($section_id < 1)
     die(sprintf('[%s] %s', __LINE__, 'no section_id defined'));
@@ -172,12 +172,12 @@ if ($use_counter) {
   $SQL = "SELECT DISTINCT `date`,`section_id` FROM `".TABLE_PREFIX."mod_topics_rss_count` WHERE `date`<'$date'";
   if (null == ($past = $database->query($SQL)))
     die(sprintf('[%s] %s', __LINE__, $database->get_error()));
-  while (false !== ($old = $past->fetchRow(MYSQL_ASSOC))) {
+  while (false !== ($old = $past->fetchRow())) {
     // walk through previous entries, add them to statistic and delete them from the count table
     $SQL = "SELECT COUNT(`md5_ip`) AS `callers`, SUM(`count`) AS `views` FROM `".TABLE_PREFIX."mod_topics_rss_count` WHERE `date`='{$old['date']}' AND `section_id`='{$old['section_id']}'";
     if (null == ($result = $database->query($SQL)))
       die(sprintf('[%s] %s', __LINE__, $database->get_error()));
-    if (false ===($statistic = $result->fetchRow(MYSQL_ASSOC)))
+    if (false ===($statistic = $result->fetchRow()))
       die(sprintf('[%s] %s', __LINE__, $database->get_error()));
     // insert the statistic into the statistic table
     $SQL = "INSERT INTO `".TABLE_PREFIX."mod_topics_rss_statistic` (`section_id`,`date`,`callers`,`views`) VALUES ('{$old['section_id']}','{$old['date']}','{$statistic['callers']}','{$statistic['views']}')";
@@ -196,7 +196,7 @@ if ($use_counter) {
     die(sprintf('[%s] %s', __LINE__, $database->get_error()));
   if ($query->numRows() > 0) {
     // add this call to the existing record
-    $update = $query->fetchRow(MYSQL_ASSOC);
+    $update = $query->fetchRow();
     $count = $update['count']+1;
     $SQL = "UPDATE `".TABLE_PREFIX."mod_topics_rss_count` SET `count`='$count' WHERE `id`='{$update['id']}'";
     if (!$database->query($SQL))
