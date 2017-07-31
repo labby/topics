@@ -83,7 +83,7 @@ $mod_topics = 'CREATE TABLE IF NOT EXISTS `'.TABLE_PREFIX.'mod_'.$tablename.'_co
       . '`commented_when` INT NOT NULL DEFAULT \'0\','
       . '`commented_by` INT NOT NULL DEFAULT \'0\','
       . 'PRIMARY KEY (comment_id)'
-            . ' )';
+      . ' )';
 $database->query($mod_topics);
 
 
@@ -124,7 +124,7 @@ $mod_topics = 'CREATE TABLE IF NOT EXISTS `'.TABLE_PREFIX.'mod_'.$tablename.'_se
       . '`comments_footer` TEXT NOT NULL,'
 
       . 'PRIMARY KEY (section_id)'
-            . ' )';
+      . ' )';
 $database->query($mod_topics);
 
 // create the RSS count table
@@ -137,7 +137,7 @@ $SQL = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_topics_rss_count` ( ".
     "`timestamp` TIMESTAMP, ".
     "PRIMARY KEY (`id`), ".
     "KEY (`md5_ip`, `date`) ".
-    ") ENGINE=MyIsam AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
+    ")";
 if (!$database->query($SQL))
   $admin->print_error($database->get_error());
 
@@ -151,7 +151,7 @@ $SQL = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_topics_rss_statistic` ( 
     "`timestamp` TIMESTAMP, ".
     "PRIMARY KEY (`id`), ".
     "KEY (`date`) ".
-    ") ENGINE=MyIsam AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
+    ")";
 if (!$database->query($SQL))
   $admin->print_error($database->get_error());
 
