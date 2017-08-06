@@ -89,8 +89,8 @@ if (!function_exists('wb_unpack_and_import')) {
     global $admin, $database;
 
     // Include the PclZip class file
-    require_once (LEPTON_PATH . '/include/pclzip/pclzip.lib.php');
-
+    require_once LEPTON_PATH."/modules/lib_lepton/pclzip/pclzip.lib.php";
+    
     $errors = array();
     $count = 0;
     $archive = new PclZip($temp_file);
