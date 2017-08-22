@@ -46,7 +46,11 @@ if(LANGUAGE_LOADED) {
 <table cellpadding="0" cellspacing="0" border="0" width="100%">
 	<tr>
 		<td>
-			<input type="button" value="<?php echo $TEXT['BACK']; ?>" onclick="javascript: window.location = '<?php echo ADMIN_URL; ?>/pages/modify.php?page_id=<?php echo $page_id.(isset($_GET['leptoken']) ? "&leptoken=".$_GET['leptoken'] : ""); ?>';" style="width: 100px; margin-top: 5px;" />
+			<input id="topics_cancel" type="button" value="<?php echo $TEXT['BACK']; ?>" onclick="javascript: window.location = '<?php echo ADMIN_URL; ?>/pages/modify.php?page_id=<?php echo $page_id.(isset($_GET['leptoken']) ? "&leptoken=".$_GET['leptoken'] : ""); ?>';" style="width: 100px; margin-top: 5px;" />
 		</td>
 	</tr>	
 </table>
+
+<?php
+    $admin->print_footer();
+?>

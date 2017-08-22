@@ -402,10 +402,10 @@ if ($fredit == 1) {$modifyurl = LEPTON_URL.'/modules/'.$mod_dir.'/modify_fe.php?
 <tr>
 	<td align="left">
 		<input type="hidden" name="gototopicslist" id="gototopicslist" value="" />
-		<input name="save" type="submit" value="<?php echo $TEXT['SAVE']; ?>" style="width: 100px; margin-top: 5px;" /> <input type="submit" onclick="document.getElementById('gototopicslist').value = '1';" value="<?php echo $MOD_TOPICS['SAVE_FINISH']; ?>" />
+		<input name="save" id="topics_save" type="submit" value="<?php echo $TEXT['SAVE']; ?>" style="width: 100px; margin-top: 5px;" /> <input type="submit" id="topics_save_back" onclick="document.getElementById('gototopicslist').value = '1';" value="<?php echo $MOD_TOPICS['SAVE_FINISH']; ?>" />
 	</td>
 	<td align="right">
-		<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo $modifyurl; ?>';" style="width: 100px; margin-top: 5px;" />
+		<input type="button" id="topics_cancel" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo $modifyurl; ?>';" style="width: 100px; margin-top: 5px;" />
 	</td>
 </tr>
 </table>

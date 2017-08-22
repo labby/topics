@@ -659,12 +659,12 @@ if(!method_exists($admin, 'register_backend_modfiles') && file_exists(LEPTON_PAT
 		<tr>
 			<td align="left">
 			<input type="hidden" name="gototopicslist" id="gototopicslist" value="" />
-			<input name="save" type="submit" value="<?php echo $TEXT['SAVE']; ?>" style="width: 100px; margin-top: 5px;" /> <input type="submit" onclick="document.getElementById('gototopicslist').value = '1';" value="<?php echo $MOD_TOPICS['SAVE_FINISH']; ?>" />
+			<input name="save" id="topics_save" type="submit" value="<?php echo $TEXT['SAVE']; ?>" style="width: 100px; margin-top: 5px;" /> <input id="topics_save_back" type="submit" onclick="document.getElementById('gototopicslist').value = '1';" value="<?php echo $MOD_TOPICS['SAVE_FINISH']; ?>" />
 			</td>
 			<td align="right">
 				<?php $backurl = ADMIN_URL.'/pages/modify.php?page_id='.$page_id.'&section_id='.$section_id;
 				if ($fredit == 1) {$backurl = LEPTON_URL.'/modules/'.$mod_dir.'/modify_fe.php?page_id='.$page_id.'&section_id='.$section_id.'&fredit=1';} ?>
-				<input type="button" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo $backurl; ?>';" style="width: 100px; margin-top: 5px;" />
+				<input type="button" id="topics_cancel" value="<?php echo $TEXT['CANCEL']; ?>" onclick="javascript: window.location = '<?php echo $backurl; ?>';" style="width: 100px; margin-top: 5px;" />
 			</td>
 		</tr>
 	</table>
