@@ -15,7 +15,7 @@
 require('../../config.php');
 if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 
-$mod_url = LEPTON_URL.'/modules/topics';
+$module_url = LEPTON_URL.'/modules/topics';
 
 // Get id
 if(!isset($_GET['topic_id']) OR !is_numeric($_GET['topic_id'])) {
@@ -98,7 +98,7 @@ require_once(LEPTON_PATH."/include/jscalendar/wb-setup.php");
 $hascontent = $fetch_content['hascontent'];
 if ($hascontent  > 0 AND $fetch_content['active'] > 0) {
 	$topic_link = LEPTON_URL.$topics_directory.$fetch_content['link'].PAGE_EXTENSION;
-	echo '<div style="float:right; width:50px;"><a href="'.$topic_link.'" target="_blank" ><img src="'.$mod_url.'/img/view_16.png" class="viewbutton" alt="View" /></a></div>';
+	echo '<div style="float:right; width:50px;"><a href="'.$topic_link.'" target="_blank" ><img src="'.$module_url.'/img/view_16.png" class="viewbutton" alt="View" /></a></div>';
 } ?>
 
 <h2><?php echo $TEXT['ADD'].'/'.$TEXT['MODIFY'].' '.$MOD_TOPICS['TOPIC']; ?></h2>
@@ -189,13 +189,13 @@ if (isset($fetch_content['groups_id']) AND isset($topics_groups)) {
 	?>
 
 	<input type="text" id="publishdate" name="publishdate" value="<?php if($fetch_content['published_when']==0) echo $published_when; else print date($jscal_format, $fetch_content['published_when']);?>" style="width: 120px;" />
-	<img src="<?php echo $mod_url ?>/img/clock_16.png" id="publishdate_trigger" style="cursor: pointer;" title="<?php echo $TEXT['CALENDAR']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" alt="" />
-	<img src="<?php echo $mod_url ?>/img/clock_del_16.png" style="cursor: pointer;" title="<?php echo $TEXT['DELETE_DATE']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" onclick="document.modify.publishdate.value=''" alt=""/>
+	<img src="<?php echo $module_url ?>/img/clock_16.png" id="publishdate_trigger" style="cursor: pointer;" title="<?php echo $TEXT['CALENDAR']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" alt="" />
+	<img src="<?php echo $module_url ?>/img/clock_del_16.png" style="cursor: pointer;" title="<?php echo $TEXT['DELETE_DATE']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" onclick="document.modify.publishdate.value=''" alt=""/>
 	</td></tr>
 <tr<?php if ($use_timebased_publishing < 2) { echo  ' style="display:none;"';} echo '><td>'.$TEXT['PUBL_END_DATE']; ?>:</td><td>
 	<input type="text" id="enddate" name="enddate" value="<?php if($fetch_content['published_until']==0) print ""; else print gmdate($jscal_format, $fetch_content['published_until'])?>" style="width: 120px;" />
-	<img src="<?php echo $mod_url ?>/img/clock_16.png" id="enddate_trigger" style="cursor: pointer;" title="<?php echo $TEXT['CALENDAR']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" alt=""/>
-	<img src="<?php echo $mod_url ?>/img/clock_del_16.png" style="cursor: pointer;" title="<?php echo $TEXT['DELETE_DATE']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" onclick="document.modify.enddate.value=''" alt=""/>
+	<img src="<?php echo $module_url ?>/img/clock_16.png" id="enddate_trigger" style="cursor: pointer;" title="<?php echo $TEXT['CALENDAR']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" alt=""/>
+	<img src="<?php echo $module_url ?>/img/clock_del_16.png" style="cursor: pointer;" title="<?php echo $TEXT['DELETE_DATE']; ?>" onmouseover="this.style.background='lightgrey';" onmouseout="this.style.background=''" onclick="document.modify.enddate.value=''" alt=""/>
 	</td></tr>
 </table></div>
 
@@ -565,7 +565,7 @@ if($query_comments->numRows() > 0) {
 	while($comment = $query_comments->fetchRow()) {
 		$editcommentlink = LEPTON_URL.'/modules/'.$mod_dir.'/modify_comment.php?page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter.'comment_id='.$comment['comment_id'].'" title="'.$TEXT['MODIFY'].'"';
 		?><tr class="row_<?php echo $row; ?>">
-			<td width="20" style="padding-left: 5px;"><a href="<?php echo $editcommentlink; ?>"><img src="<?php echo $mod_url; ?>/img/modify_16.png" border="0" alt="" title="edit" /></a></td>
+			<td width="20" style="padding-left: 5px;"><a href="<?php echo $editcommentlink; ?>"><img src="<?php echo $module_url; ?>/img/modify_16.png" border="0" alt="" title="edit" /></a></td>
 			<td><a href="<?php echo $editcommentlink.'"><b>'.$comment['name'].'</b></a><br/><small>'.$comment['comment'].'</small>'; ?></td>
 			<td width="20"><img src="img/comactive<?php echo $comment['active']; ?>.gif" /></td>
 			<td width="20"><img src="img/comlink<?php if ($comment['website'] =='') {echo 'none';} else {echo $comment['show_link'];} ?>.gif" /></td>
@@ -573,7 +573,7 @@ if($query_comments->numRows() > 0) {
 
 			<td width="20">
 				<a href="javascript: confirm_link('<?php echo $TEXT['ARE_YOU_SURE']; ?>', '<?php echo LEPTON_URL.'/modules/'.$mod_dir; ?>/delete_comment.php?page_id=<?php echo $page_id.$paramdelimiter; ?>section_id=<?php echo $section_id.$paramdelimiter; ?>topic_id=<?php echo $topic_id.$paramdelimiter.'fredit='.$fredit.$paramdelimiter; ?>comment_id=<?php echo $comment['comment_id']; ?>');" title="<?php echo $TEXT['DELETE']; ?>">
-					<img src="<?php echo $mod_url; ?>/img/delete_16.png" border="0" alt="X" />
+					<img src="<?php echo $module_url; ?>/img/delete_16.png" border="0" alt="X" />
 				</a>
 			</td>
 

@@ -16,7 +16,7 @@
 if(!defined('LEPTON_PATH')) { exit("Cannot access this file directly"); }
 require('permissioncheck.php');
 
-$mod_url = LEPTON_URL.'/modules/topics';
+$module_url = LEPTON_URL.'/modules/topics';
 
 if (isset($_GET['hl'])) {$hltopic = 0 + (int)$_GET['hl'];} else {$hltopic = 0;}
 
@@ -193,17 +193,17 @@ if($query_topics->numRows() > 0) {
 			$t = time();
 			$icon = '';
 			if($start<=$t && $end==0)
-				{ $icon=$mod_url.'/img/noclock_16.png';  }
+				{ $icon=$module_url.'/img/noclock_16.png';  }
 			elseif(($start<=$t || $start==0) && $end>=$t)
-				$icon=$mod_url.'/img/clock_16.png';
+				$icon=$module_url.'/img/clock_16.png';
 			else
-				{$icon=$mod_url.'/img/clock_red_16.png'; if ($active > 2) $public -= 1;}
+				{$icon=$module_url.'/img/clock_red_16.png'; if ($active > 2) $public -= 1;}
 			$rowcontent .= '<td width="20">'.$modifylink.'<img src="'.$icon.'" border="0" alt="" /></a></td>';
 		//} 
 		
 		if ($showsortarrows == true) {
-			$rowcontent .= '<td width="20">'; if($counter > 1) { $rowcontent .= '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=up" title="'.$TEXT['MOVE_UP'].'"><img src="'.$mod_url.'/img/up_16.png" border="0" alt="^" /></a>';} $rowcontent .= '</td>';
-			$rowcontent .= '<td width="20">'; if($counter < $num_topics) { $rowcontent .= '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=down" title="'.$TEXT['MOVE_DOWN'].'"><img src="'.$mod_url.'/img/down_16.png" border="0" alt="v" /></a>';} $rowcontent .= '</td>';
+			$rowcontent .= '<td width="20">'; if($counter > 1) { $rowcontent .= '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=up" title="'.$TEXT['MOVE_UP'].'"><img src="'.$module_url.'/img/up_16.png" border="0" alt="^" /></a>';} $rowcontent .= '</td>';
+			$rowcontent .= '<td width="20">'; if($counter < $num_topics) { $rowcontent .= '<a href="'.LEPTON_URL.'/modules/'.$mod_dir.'/move.php?'.$params.$paramdelimiter.'move=down" title="'.$TEXT['MOVE_DOWN'].'"><img src="'.$module_url.'/img/down_16.png" border="0" alt="v" /></a>';} $rowcontent .= '</td>';
 
 		} else { //End Position Arrows
 			$thet =  $topic['published_when']; //+TIMEZONE;
@@ -218,7 +218,7 @@ if($query_topics->numRows() > 0) {
 		
 		if ($topic['hascontent'] > 0 AND $active > 0) {
 			$topic_link = LEPTON_URL.$topics_directory.$topic['link'].PAGE_EXTENSION;
-		 	$rowcontent .= '<a href="'.$topic_link.'" target="_blank" ><img src="'.$mod_url.'/img/view_16.png" class="viewbutton" alt="View" /></a>';
+		 	$rowcontent .= '<a href="'.$topic_link.'" target="_blank" ><img src="'.$module_url.'/img/view_16.png" class="viewbutton" alt="View" /></a>';
 		} 
 		
 		$rowcontent .= '</td></tr>';
