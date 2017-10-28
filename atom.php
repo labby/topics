@@ -25,11 +25,6 @@ require_once(LEPTON_PATH.'/modules/'.basename(dirname(__FILE__)).'/module_settin
 $section_id = 0;
 $parameters = array();
 
-// use the parameter 's_id' as Section ID (for backward compatibility only)
-if (isset($_GET['s_id']) && is_numeric($_GET['s_id'])) {
-	$section_id = $_GET['s_id'];
-	$parameters['section_id'] = $section_id;
-}
 // use the parameter 'section_id' as Section ID
 if (isset($_GET['section_id']) && is_numeric($_GET['section_id'])) {
 	$section_id = $_GET['section_id'];
@@ -53,7 +48,7 @@ if (isset($_GET['counter']) && (strtolower($_GET['counter']) == 'false')) {
 if ($section_id == 0) {
   // read the first entry of the TOPICS settings to get a valid Section ID
   $SQL = "SELECT `section_id` FROM `".TABLE_PREFIX."mod_topics_settings` LIMIT 1";
-  if (null == ($section_id = $database->get_one($SQL, )))
+  if (null == ($section_id = $database->get_one($SQL)))
     die(sprintf('[%s] %s', __LINE__, $database->get_error()));
   if ($section_id < 1)
     die(sprintf('[%s] %s', __LINE__, 'no section_id defined'));
@@ -100,7 +95,8 @@ $last_publishing_date = 0;
 // loop through the topics
 while (false !== ($topic = $query->fetchRow())) {
   $topic_link = LEPTON_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;
-  $rfcdate = date('D, d M Y H:i:s O', (int) $topic["published_when"]);
+  $update = date(DATE_RFC3339,$topic["posted_modified"]);  
+  $rfcdate = date(DATE_RFC3339,$topic["published_when"]);
   if ($last_publishing_date < (int) $topic['published_when'])
     $last_publishing_date = (int) $topic['published_when'];
   $title = stripslashes($topic["title"]);
@@ -111,58 +107,67 @@ while (false !== ($topic = $query->fetchRow())) {
     // we must process the droplets to get the real output content
     include_once(LEPTON_PATH .'/modules/droplets/droplets.php');
     if (function_exists('evalDroplets'))
-      $content = evalDroplets($content);
+		evalDroplets($content);
   }
   if (!empty($topic['picture'])) {
     // add a image to the content
     $img_url = $picture_url.$topic['picture'];
 $content = '
-<div>
-  <img style="float:left;width:$image_width_px;height:auto;margin:0;padding:0 20px 20px 0;" src="$img_url" width="$image_width" alt="$title" />
-  $content
+<div xmlns="http://www.w3.org/1999/xhtml">
+  <img style="float:left;width:'.$image_width_px.';height:auto;margin:0;padding:0 20px 20px 0;" src="'.$img_url.'" width="'.$image_width.'" alt="'.$title.'" />
+  '.$content.'
 </div>
 ';
   } // image
   // add the topic to the $topics placeholder
 $topics .= '
-    <item>
-    	<title><![CDATA[$title]]></title>
-    	<pubDate><![CDATA[$rfcdate]]></pubDate>
-    	<description><![CDATA[$content]]></description>
-    	<guid>$topic_link</guid>
-    	<link>$topic_link</link>
-    </item>
+		<entry>
+			<title>'.$title.'</title>	
+			<summary type="xhtml">
+				<div xmlns="http://www.w3.org/1999/xhtml">'.$content.'</div>
+			</summary>
+			<id>'.$topic_link.'</id>
+			<link rel="alternate" href="'.$topic_link.'" />
+			<published>'.$rfcdate.'</published>
+			<updated>'.$update.'</updated>
+		</entry>
 ';
 } // while
 
+// get last modification from topics table
+$last_item_date = $database->get_one("select posted_modified FROM ".TABLE_PREFIX."mod_topics ORDER BY posted_modified DESC ");
+$update_feed = date(DATE_RFC3339,$last_item_date);
+$author = WEBSITE_HEADER;
 $link = LEPTON_URL;
 $language = strtolower(DEFAULT_LANGUAGE);
 $category = WEBSITE_TITLE;
-if (count($parameters) > 0) {
-  $atom_link = LEPTON_URL."/modules/topics/rss.php?".http_build_query($parameters);
-}
-else
-  $atom_link = LEPTON_URL."/modules/topics/rss.php";
 $charset = defined('DEFAULT_CHARSET') ? DEFAULT_CHARSET : 'utf-8';
 $rfcdate = date('D, d M Y H:i:s O', $last_publishing_date);
+$feed_link = LEPTON_URL'/modules/topics/atom.php?page_id='.$page_id.' ';
+$version = VERSION;
+
+if (count($parameters) > 0) {
+	$atom_link = LEPTON_URL."/modules/topics/atom.php?".http_build_query($parameters);
+}
+else {
+	$atom_link = LEPTON_URL."/modules/topics/atom.php";	
+}
 
 // create the XML body with the topics
 $xml_body = '
-<?xml version="1.0" encoding="$charset"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>$section_title</title>
-    <link>$link</link>
-    <description>$section_description</description>
-    <language>$language</language>
-    <category>$category</category>
-    <generator>TOPICS for LEPTON CMS</generator>
-    <pubDate><![CDATA[$rfcdate]]></pubDate>
-    <ttl>60</ttl>
-    <atom:link href="$atom_link" rel="self" type="application/rss+xml" />
-    $topics
-  </channel>
-</rss>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>'.$section_title.'</title>
+	<author>
+      <name>'.$author.'</name>
+	</author>
+	<updated>'.$update_feed.'</updated>
+	<id>'.$link.'/</id>
+	<subtitle>'.$section_description.'</subtitle>
+	<link rel="self" href=" .'$feed_link.'" type="application/atom+xml" />		
+	<generator uri="https://lepton-cms.org/" version="'.$version.'">LEPTON CMS</generator>
+	<rights>Copyright (c) [[year]], '.$author.'</rights>
+    '.$topics.'
+</feed>
 ';
 
 if ($use_counter) {
@@ -210,7 +215,15 @@ if ($use_counter) {
   }
 } // $use_counter
 
-// Sending XML header
-header("Content-type: text/xml; charset=$charset");
+// Header info, sending XML header
+header("Content-type:text/xml; charset=$charset" );
+echo('<?xml version="1.0" encoding="utf-8"?>');
+/* See for details
+1. https://tools.ietf.org/html/rfc4287 (official) 
+2. https://validator.w3.org/feed/docs/atom.html
+3. https://www.data2type.de/xml-xslt-xslfo/newsfeeds-rss-atom/   (de)
+*/
+
 // output XML content
 echo $xml_body;
+?>
