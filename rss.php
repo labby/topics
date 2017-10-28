@@ -25,11 +25,6 @@ require_once(LEPTON_PATH.'/modules/'.basename(dirname(__FILE__)).'/module_settin
 $section_id = 0;
 $parameters = array();
 
-// use the parameter 's_id' as Section ID (for backward compatibility only)
-if (isset($_GET['s_id']) && is_numeric($_GET['s_id'])) {
-	$section_id = $_GET['s_id'];
-	$parameters['section_id'] = $section_id;
-}
 // use the parameter 'section_id' as Section ID
 if (isset($_GET['section_id']) && is_numeric($_GET['section_id'])) {
 	$section_id = $_GET['section_id'];
@@ -53,7 +48,7 @@ if (isset($_GET['counter']) && (strtolower($_GET['counter']) == 'false')) {
 if ($section_id == 0) {
   // read the first entry of the TOPICS settings to get a valid Section ID
   $SQL = "SELECT `section_id` FROM `".TABLE_PREFIX."mod_topics_settings` LIMIT 1";
-  if (null == ($section_id = $database->get_one($SQL, )))
+  if (null == ($section_id = $database->get_one($SQL)))
     die(sprintf('[%s] %s', __LINE__, $database->get_error()));
   if ($section_id < 1)
     die(sprintf('[%s] %s', __LINE__, 'no section_id defined'));
@@ -111,26 +106,26 @@ while (false !== ($topic = $query->fetchRow())) {
     // we must process the droplets to get the real output content
     include_once(LEPTON_PATH .'/modules/droplets/droplets.php');
     if (function_exists('evalDroplets'))
-      $content = evalDroplets($content);
+		evalDroplets($content);
   }
   if (!empty($topic['picture'])) {
     // add a image to the content
     $img_url = $picture_url.$topic['picture'];
 $content = '
 <div>
-  <img style="float:left;width:$image_width_px;height:auto;margin:0;padding:0 20px 20px 0;" src="$img_url" width="$image_width" alt="$title" />
-  $content
+  <img style="float:left;width:'.$image_width_px.';height:auto;margin:0;padding:0 20px 20px 0;" src="'.$img_url.'" width="'.$image_width.'" alt="'.$title.'" />
+  '.$content.'
 </div>
 ';
   } // image
   // add the topic to the $topics placeholder
 $topics .= '
     <item>
-    	<title><![CDATA[$title]]></title>
-    	<pubDate><![CDATA[$rfcdate]]></pubDate>
-    	<description><![CDATA[$content]]></description>
-    	<guid>$topic_link</guid>
-    	<link>$topic_link</link>
+    	<title><![CDATA['.$title.']]></title>
+    	<pubDate><![CDATA['.$rfcdate.']]></pubDate>
+    	<description><![CDATA['.$content.']]></description>		
+    	<guid>'.$topic_link.'</guid>
+    	<link>'.$topic_link.'</link>
     </item>
 ';
 } // while
@@ -138,29 +133,30 @@ $topics .= '
 $link = LEPTON_URL;
 $language = strtolower(DEFAULT_LANGUAGE);
 $category = WEBSITE_TITLE;
-if (count($parameters) > 0) {
-  $atom_link = LEPTON_URL."/modules/topics/rss.php?".http_build_query($parameters);
-}
-else
-  $atom_link = LEPTON_URL."/modules/topics/rss.php";
 $charset = defined('DEFAULT_CHARSET') ? DEFAULT_CHARSET : 'utf-8';
 $rfcdate = date('D, d M Y H:i:s O', $last_publishing_date);
 
+if (count($parameters) > 0) {
+	$atom_link = LEPTON_URL."/modules/topics/rss.php?".http_build_query($parameters);
+}
+else {
+	$atom_link = LEPTON_URL."/modules/topics/rss.php";	
+}
+
 // create the XML body with the topics
 $xml_body = '
-<?xml version="1.0" encoding="$charset"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>$section_title</title>
-    <link>$link</link>
-    <description>$section_description</description>
-    <language>$language</language>
-    <category>$category</category>
+    <title>'.$section_title.'</title>
+    <link>'.$link.'</link>
+    <description>'.$section_description.'</description>
+    <language>'.$language.'</language>
+    <category>'.$category.'</category>
     <generator>TOPICS for LEPTON CMS</generator>
-    <pubDate><![CDATA[$rfcdate]]></pubDate>
+    <pubDate><![CDATA['.$rfcdate.']]></pubDate>
     <ttl>60</ttl>
-    <atom:link href="$atom_link" rel="self" type="application/rss+xml" />
-    $topics
+    <atom:link href="'.$atom_link.'" rel="self" type="application/rss+xml" />
+    '.$topics.'
   </channel>
 </rss>
 ';
@@ -211,6 +207,10 @@ if ($use_counter) {
 } // $use_counter
 
 // Sending XML header
-header("Content-type: text/xml; charset=$charset");
+header("Content-type: text/xml; charset=$charset" );
+
+// Header info, Required by CSS 2.0
+echo '<?xml version="1.0" encoding="'.$charset.'"?>';
 // output XML content
 echo $xml_body;
+?>
