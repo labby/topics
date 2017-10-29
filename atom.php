@@ -97,8 +97,10 @@ while (false !== ($topic = $query->fetchRow())) {
   $topic_link = LEPTON_URL.$topics_virtual_directory.$topic['link'].PAGE_EXTENSION;
   $update = date(DATE_RFC3339,$topic["posted_modified"]);  
   $rfcdate = date(DATE_RFC3339,$topic["published_when"]);
-  if ($last_publishing_date < (int) $topic['published_when'])
-    $last_publishing_date = (int) $topic['published_when'];
+  
+  if ($last_publishing_date < (int) $topic['published_when']){
+	      $last_publishing_date = (int) $topic['published_when'];
+  }
   $title = stripslashes($topic["title"]);
   $content = stripslashes($topic["content_short"]);
   // we don't want any dbGlossary entries here...
@@ -113,10 +115,8 @@ while (false !== ($topic = $query->fetchRow())) {
     // add a image to the content
     $img_url = $picture_url.$topic['picture'];
 $content = '
-<div xmlns="http://www.w3.org/1999/xhtml">
   <img style="float:left;width:'.$image_width_px.';height:auto;margin:0;padding:0 20px 20px 0;" src="'.$img_url.'" width="'.$image_width.'" alt="'.$title.'" />
   '.$content.'
-</div>
 ';
   } // image
   // add the topic to the $topics placeholder
@@ -142,8 +142,8 @@ $link = LEPTON_URL;
 $language = strtolower(DEFAULT_LANGUAGE);
 $category = WEBSITE_TITLE;
 $charset = defined('DEFAULT_CHARSET') ? DEFAULT_CHARSET : 'utf-8';
-$rfcdate = date('D, d M Y H:i:s O', $last_publishing_date);
-$feed_link = LEPTON_URL'/modules/topics/atom.php?page_id='.$page_id.' ';
+$rfcdate = date(DATE_RFC3339,$last_publishing_date);
+$feed_link = LEPTON_URL.'/modules/topics/atom.php?page_id='.$page_id.'';
 $version = VERSION;
 
 if (count($parameters) > 0) {
@@ -163,7 +163,7 @@ $xml_body = '
 	<updated>'.$update_feed.'</updated>
 	<id>'.$link.'/</id>
 	<subtitle>'.$section_description.'</subtitle>
-	<link rel="self" href=" .'$feed_link.'" type="application/atom+xml" />		
+	<link rel="self" href="'.$feed_link.'" type="application/atom+xml" />				
 	<generator uri="https://lepton-cms.org/" version="'.$version.'">LEPTON CMS</generator>
 	<rights>Copyright (c) [[year]], '.$author.'</rights>
     '.$topics.'
@@ -214,7 +214,6 @@ if ($use_counter) {
       die(sprintf('[%s] %s', __LINE__, $database->get_error()));
   }
 } // $use_counter
-
 // Header info, sending XML header
 header("Content-type:text/xml; charset=$charset" );
 echo('<?xml version="1.0" encoding="utf-8"?>');
