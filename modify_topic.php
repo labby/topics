@@ -516,7 +516,7 @@ if($query_topics->numRows() > 1) { //Shit, cant find the bug, should be > 1
 
 
 	//echo $fetch_content['see_also'];
-	$params = 'page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$topic_id.$paramdelimiter.'fredit='.$fredit;
+	$params = 'page_id='.$page_id.$paramdelimiter.'section_id='.$section_id.$paramdelimiter.'topic_id='.$topic_id.$paramdelimiter.'fredit='.$fredit.'&leptoken='.get_leptoken();
 	echo '<div class="topic-modifytopic">';
 	if ($fetch_content['content_long'] != '' AND $author_trust_rating < 3) {
 		if ($topic_seealso_support == 'bakery') {
